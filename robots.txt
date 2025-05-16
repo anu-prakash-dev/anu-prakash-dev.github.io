@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /_astro/
 
 Sitemap: https://anu-prakash-dev.github.io/sitemap-index.xml
