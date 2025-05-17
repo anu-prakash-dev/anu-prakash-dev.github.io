@@ -1,256 +1,756 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Fuwari</title><description>Demo Site</description><link>https://anu-prakash-dev.github.io/</link><language>en</language><item><title>Markdown Extended Features</title><link>https://anu-prakash-dev.github.io/posts/markdown-extended/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/markdown-extended/</guid><description>Read more about Markdown features in Fuwari</description><pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;GitHub Repository Cards&lt;/h2&gt;
-&lt;p&gt;You can add dynamic cards that link to GitHub repositories, on page load, the repository information is pulled from the GitHub API.&lt;/p&gt;
-&lt;p&gt;::github{repo=&quot;Fabrizz/MMM-OnSpotify&quot;}&lt;/p&gt;
-&lt;p&gt;Create a GitHub repository card with the code &lt;code&gt;::github{repo=&quot;&amp;lt;owner&amp;gt;/&amp;lt;repo&amp;gt;&quot;}&lt;/code&gt;.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;::github{repo=&quot;saicaca/fuwari&quot;}
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://anu-prakash-dev.github.io/</link><language>en</language><item><title>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</title><link>https://anu-prakash-dev.github.io/posts/bpfsnippets/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/bpfsnippets/</guid><description>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</description><pubDate>Sat, 17 Aug 2024 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Business Process Flow (BPF) JavaScript API&apos;s&lt;/p&gt;
+&lt;h2&gt;Get Active Process ID&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;var processId = formContext.data.process.getActiveProcess().getId();
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;Admonitions&lt;/h2&gt;
-&lt;p&gt;Following types of admonitions are supported: &lt;code&gt;note&lt;/code&gt; &lt;code&gt;tip&lt;/code&gt; &lt;code&gt;important&lt;/code&gt; &lt;code&gt;warning&lt;/code&gt; &lt;code&gt;caution&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;:::note
-Highlights information that users should take into account, even when skimming.
-:::&lt;/p&gt;
-&lt;p&gt;:::tip
-Optional information to help a user be more successful.
-:::&lt;/p&gt;
-&lt;p&gt;:::important
-Crucial information necessary for users to succeed.
-:::&lt;/p&gt;
-&lt;p&gt;:::warning
-Critical content demanding immediate user attention due to potential risks.
-:::&lt;/p&gt;
-&lt;p&gt;:::caution
-Negative potential consequences of an action.
-:::&lt;/p&gt;
-&lt;h3&gt;Basic Syntax&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;:::note
-Highlights information that users should take into account, even when skimming.
-:::
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Retrieves the ID of the active process.&lt;/p&gt;
+&lt;h2&gt;Get Active Stage ID&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;var stageId = formContext.data.process.getActiveStage().getId();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Retrieves the ID of the active stage within the BPF.&lt;/p&gt;
+&lt;h2&gt;Get Active Stage Name&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;var stageName = formContext.data.process.getActiveStage().getName();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Retrieves the name of the active stage.&lt;/p&gt;
+&lt;h2&gt;Get Active Stage Status&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;var stageStatus = formContext.data.process.getActiveStage().getStatus();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Retrieves the status of the active stage. The status can be either &lt;code&gt;active&lt;/code&gt;, &lt;code&gt;inactive&lt;/code&gt;, or &lt;code&gt;finished&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Set Active Stage&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;formContext.data.process.moveNext(function (result) {
+    if (result == &quot;success&quot;) {
+        // Success logic here
+    } else {
+        // Error logic here
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Moves to the next stage in the BPF. You can use &lt;code&gt;movePrevious()&lt;/code&gt; to go back to the previous stage.&lt;/p&gt;
+&lt;h2&gt;Get Process Stages&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;formContext.data.process.getActiveProcess().getStages().forEach(function (stage, i) {
+    console.log(stage.getId() + &quot;: &quot; + stage.getName());
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Retrieves all stages of the active process and logs their IDs and names.&lt;/p&gt;
+&lt;h2&gt;Get Active Process Name&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;var processName = formContext.data.process.getActiveProcess().getName();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Retrieves the name of the active BPF.&lt;/p&gt;
+&lt;h2&gt;Check if BPF is Rendered&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;if (formContext.ui.process &amp;amp;&amp;amp; formContext.ui.process.getVisible()) {
+    console.log(&quot;BPF is rendered&quot;);
+} else {
+    console.log(&quot;BPF is not rendered&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Checks whether the BPF is visible/rendered on the form.&lt;/p&gt;
+&lt;h2&gt;Get BPF Control Visibility&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;var visibility = formContext.ui.process.getVisible();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Checks if the BPF control is visible on the form.&lt;/p&gt;
+&lt;h2&gt;Set BPF Control Visibility&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;formContext.ui.process.setVisible(true); // Set to false to hide
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Sets the visibility of the BPF control on the form.&lt;/p&gt;
+&lt;h2&gt;Add OnStageChange Event Handler&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;formContext.data.process.addOnStageChange(myStageChangeFunction);
+function myStageChangeFunction() {
+    console.log(&quot;Stage changed!&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Adds an event handler that triggers when the stage changes.&lt;/p&gt;
+&lt;h2&gt;Remove OnStageChange Event Handler&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;formContext.data.process.removeOnStageChange(myStageChangeFunction);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Removes an event handler for the stage change event.&lt;/p&gt;
+&lt;h2&gt;Get BPF Instance Status&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;var processInstanceStatus = formContext.data.process.getInstanceStatus();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Retrieves the status of the BPF instance. Possible values are &lt;code&gt;active&lt;/code&gt;, &lt;code&gt;aborted&lt;/code&gt;, or &lt;code&gt;finished&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Get Current Process Instance ID&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;var processInstanceId = formContext.data.process.getInstanceId();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Retrieves the ID of the current BPF instance.&lt;/p&gt;
+&lt;h2&gt;Get Process ID for a Given Entity&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;var processId = formContext.data.process.getEntityProcesses(function (result) {
+    console.log(result);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Retrieves the available BPFs for the entity and logs them.&lt;/p&gt;
+&lt;h2&gt;Get Process Instances&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;var processInstances = formContext.data.process.getProcessInstances(function (result) {
+    console.log(result);
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Retrieves all BPF instances for the entity.&lt;/p&gt;
+&lt;h2&gt;Set Active Process&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;formContext.data.process.setActiveProcess(processId, function (result) {
+    if (result == &quot;success&quot;) {
+        console.log(&quot;Process set successfully.&quot;);
+    } else {
+        console.log(&quot;Failed to set process.&quot;);
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Sets the active BPF to a specific process using its ID.&lt;/p&gt;
+&lt;h2&gt;Switch to a Different Process Stage&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;formContext.data.process.setActiveStage(stageId, function (result) {
+    if (result == &quot;success&quot;) {
+        console.log(&quot;Stage changed successfully.&quot;);
+    } else {
+        console.log(&quot;Failed to change stage.&quot;);
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Switches to a different stage within the current BPF using its stage ID.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>Using Power Platform Tools to develop Plugins in Visual Studio 2022</title><link>https://anu-prakash-dev.github.io/posts/pptoolswalk/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/pptoolswalk/</guid><description>Using Power Platform Tools to develop Plugins in Visual Studio 2022</description><pubDate>Sun, 28 Jul 2024 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;strong&gt;Introduction&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In this tutorial, we will walk through the process of using Power Platform tools in Visual Studio 2022. Power Platform tools allow you to build, debug, and manage Power Apps, Power Automate flows, and other Power Platform components directly within Visual Studio. This guide includes detailed steps along with screenshots to make the process easy to follow.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Prerequisites&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Before you begin, ensure you have the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Visual Studio 2022 installed&lt;/li&gt;
+&lt;li&gt;An active Microsoft Power Platform account&lt;/li&gt;
+&lt;li&gt;Power Platform tools installed in Visual Studio&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Install Power Platform Tools&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Open Visual Studio 2022.&lt;/li&gt;
+&lt;li&gt;Go to the Extensions menu and select Manage Extensions.&lt;/li&gt;
+&lt;li&gt;In the Manage Extensions window, search for “Power Platform”.&lt;/li&gt;
+&lt;li&gt;Find Power Platform Tools in the search results and click Download.&lt;/li&gt;
+&lt;li&gt;After the download is complete, close Visual Studio to start the installation process.&lt;/li&gt;
+&lt;li&gt;Follow the prompts to complete the installation.&lt;/li&gt;
+&lt;li&gt;Reopen Visual Studio after the installation is complete.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Create a New Power Platform Project&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;In Visual Studio, go to File &amp;gt; New &amp;gt; Project.&lt;/li&gt;
+&lt;li&gt;In the Create a new project dialog, search for “Power Platform Solution Template”.&lt;/li&gt;
+&lt;li&gt;Select Power Platform Solution Template and click Next.&lt;/li&gt;
+&lt;li&gt;Provide a name and location for your project, then click Create&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.001.png&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.002.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Select the Framework 4.6.2&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.003.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Select Solution Type&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.004.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;To create a new Solution&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.005.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Connect to Dataverse&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.006.png&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.007.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Select Environment&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.008.png&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.009.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Select Solution to deploy&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.010.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Add Plugin project&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.011.png&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.012.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Remove existing XRM SDK references&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.013.png&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.014.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Add CRM SDK Core assemblies from Nuget&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.015.png&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.016.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Add new plugin class&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.017.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Add Plugin steps to .crmregister File&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.018.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Build and Deploy&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.019.png&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.020.png&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.021.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Finally Plugin is deployed to Crm via selected solution&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.022.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Congratulations! You have successfully installed and used Power Platform tools in Visual Studio 2022. You can now create, manage, and debug your Power Apps directly within Visual Studio. Explore further to utilize more features and enhance your Power Platform development experience&lt;/p&gt;
+</content:encoded></item><item><title>How to Develop PCF Controls Using Vanilla JavaScript</title><link>https://anu-prakash-dev.github.io/posts/pcfplainjs/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/pcfplainjs/</guid><description>How to Develop PCF Controls Using Vanilla JavaScript</description><pubDate>Sat, 18 May 2024 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;PowerApps Component Framework (PCF) allows developers to create custom components that can be used within PowerApps. In this tutorial, we will walk through the process of creating a simple PCF control using vanilla JavaScript.&lt;/p&gt;
+&lt;h2&gt;Prerequisites&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Node.js and npm installed&lt;/li&gt;
+&lt;li&gt;PowerApps CLI installed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Setting Up Your Project&lt;/h2&gt;
+&lt;p&gt;To initialize a PCF Component project, execute the below command:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pac pcf init --namespace myNamespace --name PCFCustCtrl --template field
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Update ControlManifest.Input.xml&lt;/h2&gt;
+&lt;p&gt;Add this configuration to define your control&apos;s properties:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&amp;gt;
+&amp;lt;manifest&amp;gt;
+  &amp;lt;control namespace=&quot;myNamespace&quot; constructor=&quot;PCFCustCtrl&quot; version=&quot;1.0.0&quot; display-name-key=&quot;PCFCustCtrl&quot; description-key=&quot;Simple Text Control&quot; control-type=&quot;standard&quot;&amp;gt;
+    &amp;lt;property name=&quot;SimpleTextControl&quot; display-name-key=&quot;SimpleTextControl_Display_Key&quot; description-key=&quot;SimpleTextControl_Desc_Key&quot; of-type=&quot;SingleLine.Text&quot; usage=&quot;bound&quot; required=&quot;true&quot; /&amp;gt;
+    &amp;lt;resources&amp;gt;
+      &amp;lt;code path=&quot;index.ts&quot; order=&quot;1&quot; /&amp;gt;
+    &amp;lt;!--  &amp;lt;css path=&quot;css/PCFCustCtrl.css&quot; order=&quot;1&quot; /&amp;gt; --&amp;gt;
+    &amp;lt;/resources&amp;gt;
+  &amp;lt;/control&amp;gt;
+&amp;lt;/manifest&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Update Index.ts and create Control.js&lt;/h2&gt;
+&lt;h3&gt;index.ts&lt;/h3&gt;
+&lt;p&gt;Update &lt;code&gt;index.ts&lt;/code&gt;. This file is the entry point for your PCF control:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import {PCFCustCtrl} from &quot;./control.js&quot;;
+export {PCFCustCtrl};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;control.js&lt;/h3&gt;
+&lt;p&gt;Next, create the &lt;code&gt;control.js&lt;/code&gt; file, which contains the implementation of your PCF control:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/** This class represents your control. */
+function PCFCustCtrl() {
+  /**
+   * Empty constructor.
+   */
+}
+var _context,_notifyOutputChanged,_state,_container;
+var _myTextBox;
 
-:::tip
-Optional information to help a user be more successful.
-:::
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;Custom Titles&lt;/h3&gt;
-&lt;p&gt;The title of the admonition can be customized.&lt;/p&gt;
-&lt;p&gt;:::note[MY CUSTOM TITLE]
-This is a note with a custom title.
-:::&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;:::note[MY CUSTOM TITLE]
-This is a note with a custom title.
-:::
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;GitHub Syntax&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;[!TIP]
-&lt;a href=&quot;https://github.com/orgs/community/discussions/16925&quot;&gt;The GitHub syntax&lt;/a&gt; is also supported.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;&amp;gt; [!NOTE]
-&amp;gt; The GitHub syntax is also supported.
+/** This method is called when the control is to be initialized */
+PCFCustCtrl.prototype.init = function init(context, notifyOutputChanged, state, container) {
+  // Add control initialization code
+  _context = context;
+  _notifyOutputChanged = notifyOutputChanged;
+  _state = state;
+  _container = container;
+  _myTextBox = document.createElement(&quot;input&quot;);
+  _myTextBox.type = &quot;text&quot;;
+  _myTextBox.value = context.parameters.SimpleTextControl.raw || &quot;&quot;;
+  _container.appendChild(_myTextBox);
+}
 
-&amp;gt; [!TIP]
-&amp;gt; The GitHub syntax is also supported.
+/** This method is called when the control is to be rendered */
+PCFCustCtrl.prototype.updateView = function updateView(context) {
+  _myTextBox.value = context.parameters.SimpleTextControl.raw || &quot;&quot;;
+  // Add code to update control view
+}
+
+/** This method is called when the output is changed */
+PCFCustCtrl.prototype.getOutputs = function getOutputs() {
+  return {
+    // Add code to return outputs
+  }
+}
+
+/** This method is called when the control is to be destroyed */
+PCFCustCtrl.prototype.destroy = function destroy() {
+  // Add code to cleanup control if necessary
+}
+
+/** export class */
+module.exports = {PCFCustCtrl}
 &lt;/code&gt;&lt;/pre&gt;
-</content:encoded></item><item><title>Simple Guides for Fuwari</title><link>https://anu-prakash-dev.github.io/posts/guide/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/guide/</guid><description>How to use this blog template.</description><pubDate>Mon, 01 Apr 2024 00:00:00 GMT</pubDate><content:encoded>&lt;blockquote&gt;
-&lt;p&gt;Cover image source: &lt;a href=&quot;https://image.civitai.com/xG1nkqKTMzGDvpLrqFT7WA/208fc754-890d-4adb-9753-2c963332675d/width=2048/01651-1456859105-(colour_1.5),girl,_Blue,yellow,green,cyan,purple,red,pink,_best,8k,UHD,masterpiece,male%20focus,%201boy,gloves,%20ponytail,%20long%20hair,.jpeg&quot;&gt;Source&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;This blog template is built with &lt;a href=&quot;https://astro.build/&quot;&gt;Astro&lt;/a&gt;. For the things that are not mentioned in this guide, you may find the answers in the &lt;a href=&quot;https://docs.astro.build/&quot;&gt;Astro Docs&lt;/a&gt;.&lt;/p&gt;
-&lt;h2&gt;Front-matter of Posts&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;---
-title: My First Blog Post
-published: 2023-09-09
-description: This is the first post of my new Astro blog.
-image: ./cover.jpg
-tags: [Foo, Bar]
-category: Front-end
-draft: false
----
+&lt;h2&gt;Update TypeScript Configuration&lt;/h2&gt;
+&lt;p&gt;Update &lt;code&gt;tsconfig.json&lt;/code&gt; file as per below:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+    &quot;extends&quot;: &quot;./node_modules/pcf-scripts/tsconfig_base.json&quot;,
+    &quot;compilerOptions&quot;: {
+        &quot;typeRoots&quot;: [&quot;node_modules/@types&quot;],
+        &quot;allowJs&quot;: true
+    }
+}
 &lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Test Your Control&lt;/h2&gt;
+&lt;p&gt;To test your PCF control, execute the below command to test the control in your browser:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm run start
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;You have now created a basic PCF control using vanilla JavaScript. This control can be extended with more functionality and customized to meet your specific needs. PCF provides a powerful way to create rich, interactive components that can be used within PowerApps.&lt;/p&gt;
+&lt;p&gt;Feel free to experiment with the control and add more features as you learn more about PCF.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>To implement Accordion Pane functionality in Dynamics 365 using Custom Web resources</title><link>https://anu-prakash-dev.github.io/posts/accordion/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/accordion/</guid><description>To implement Accordion Pane functionality in Dynamics 365 using Custom Web resources</description><pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Often, businesses require customized functionalities to streamline processes and enhance user productivity. One such customization is implementing an accordion pane, which provides a clean and organized way to display content within a form. In this tutorial, we’ll walk through the steps to implement accordion pane functionality in Dynamics 365 forms, allowing users to toggle between sections of content with ease.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Create HTML Web Resources&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For accordion button, create a HTML web resource. This web resource will contain the HTML and JavaScript code to handle the accordion functionality.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Add a Html button.&lt;/li&gt;
+&lt;li&gt;Add a function to handle button click event.&lt;/li&gt;
+&lt;li&gt;Add CSS styles.&lt;/li&gt;
+&lt;li&gt;Add a function to pass &lt;em&gt;formcontext&lt;/em&gt; from Dynamics 365 Form onLoad.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;style&amp;gt;
+  a {
+    font: 13px &quot;Montserrat&quot;, sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 1em;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    height: 70%;
+  }
+ 
+  .button1 {
+    color: white;
+    background-color: #2d7eff;
+    border: 5px solid transparent;
+  }
+ 
+  .button1:hover {
+    color: #2d7eff;
+    background-color: white;
+    border: 5px solid #2d7eff;
+  }
+&amp;lt;/style&amp;gt;
+ 
+&amp;lt;body&amp;gt;
+ 
+  &amp;lt;a href=&quot;#&quot; class=&quot;button1&quot; onclick=&quot;handleClick(this)&quot;&amp;gt;Show&amp;lt;/a&amp;gt;
+ 
+&amp;lt;/body&amp;gt;
+&amp;lt;script&amp;gt;
+  const urlParams = new URLSearchParams(window.location.search);
+  const myParam = urlParams.get(&apos;data&apos;);
+ 
+  var formContext;
+ 
+  function setFormContext(_formContext) {
+    formContext = _formContext;
+    if (myParam == &quot;button1&quot;) {
+      document.getElementsByClassName(&apos;button1&apos;)[0].innerText = &quot;Show All Accounts&quot;
+    } else if (myParam == &quot;button2&quot;) {
+      document.getElementsByClassName(&apos;button1&apos;)[0].innerText = &quot;Show Related Accounts&quot;
+    }
+  }
+ 
+//In the HTML web resources for the button sections, implement JavaScript code to handle button click events. When a button is clicked, it should show its corresponding content section and hide the other content sections.
+  function handleClick(btn) {
+    if (myParam == &quot;button1&quot;) {
+ 
+      if (formContext.ui.tabs.get(&quot;general&quot;).sections.get(&quot;general_section_4&quot;).getVisible() != true) {
+        document.getElementsByClassName(&apos;button1&apos;)[0].innerText = &quot;Hide All Accounts&quot;
+        formContext.ui.tabs.get(&quot;general&quot;).sections.get(&quot;general_section_4&quot;).setVisible(true);
+      } else {
+        document.getElementsByClassName(&apos;button1&apos;)[0].innerText = &quot;Show All Accounts&quot;
+        formContext.ui.tabs.get(&quot;general&quot;).sections.get(&quot;general_section_4&quot;).setVisible(false);
+      }
+ 
+      var wrControl2 = formContext.getControl(&quot;WebResource_new_2&quot;);
+      if (wrControl2) {
+        wrControl2.getContentWindow().then(
+          function (contentWindow) {
+            contentWindow.document.getElementsByClassName(&apos;button1&apos;)[0].innerText = &quot;Show Related Accounts&quot;
+          }
+        )
+      }
+      formContext.ui.tabs.get(&quot;general&quot;).sections.get(&quot;general_section_6&quot;).setVisible(false);
+ 
+    } else if (myParam == &quot;button2&quot;) {
+ 
+      if (formContext.ui.tabs.get(&quot;general&quot;).sections.get(&quot;general_section_6&quot;).getVisible() != true) {
+        document.getElementsByClassName(&apos;button1&apos;)[0].innerText = &quot;Hide Related Accounts&quot;
+        formContext.ui.tabs.get(&quot;general&quot;).sections.get(&quot;general_section_6&quot;).setVisible(true);
+      } else {
+        document.getElementsByClassName(&apos;button1&apos;)[0].innerText = &quot;Show Related Accounts&quot;
+        formContext.ui.tabs.get(&quot;general&quot;).sections.get(&quot;general_section_6&quot;).setVisible(false);
+      }
+ 
+      var wrControl1 = formContext.getControl(&quot;WebResource_new_1&quot;);
+      if (wrControl1) {
+        wrControl1.getContentWindow().then(
+          function (contentWindow) {
+            contentWindow.document.getElementsByClassName(&apos;button1&apos;)[0].innerText = &quot;Show All Accounts&quot;
+          }
+        )
+      }
+      formContext.ui.tabs.get(&quot;general&quot;).sections.get(&quot;general_section_4&quot;).setVisible(false);
+ 
+    }
+  }
+&amp;lt;/script&amp;gt;
+ 
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add the button web resource to Dynamics 365 Solution.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.001.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Customize the Form&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Open the Power platform Form editor and add the HTML web resources to the respective sections on the form.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.002.jpeg&quot; alt=&quot;ref1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Design the Sections&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Section 1: Button web resource for the first accordion pane&lt;/li&gt;
+&lt;li&gt;Section 2: Content for the first accordion pane&lt;/li&gt;
+&lt;li&gt;Section 3: Button web resource for the second accordion pane&lt;/li&gt;
+&lt;li&gt;Section 4: Content for the second accordion pane&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;initial.webm&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; framespacing=&quot;0&quot; allowfullscreen=&quot;true&quot;&amp;gt; &amp;lt;/iframe&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pass formContext&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;For passing the &lt;em&gt;formContext&lt;/em&gt; from the form to the button web resource, create a Form onLoad() function.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;function form_onload(executionContext) {
+    var formContext = executionContext.getFormContext();
+    var wrControl1 = formContext.getControl(&quot;WebResource_new_1&quot;);
+    if (wrControl1) {
+        wrControl1.getContentWindow().then(
+            function (contentWindow) {
+                contentWindow.setFormContext(formContext);
+            }
+        )
+    }
+    var wrControl2 = formContext.getControl(&quot;WebResource_new_2&quot;);
+    if (wrControl2) {
+        wrControl2.getContentWindow().then(
+            function (contentWindow) {
+                contentWindow.setFormContext(formContext);
+            }
+        )
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Add Library to Dynamics 365&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Add the Form events by uploading the JavaScript file to Dynamics 365 and add the form_onload function to the form events.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.003.jpeg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.004.jpeg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.005.jpeg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.002.jpeg&quot; alt=&quot;ref1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Test the Accordion Functionality&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Save and publish your form customization changes, then test the accordion functionality within the Dynamics 365 environment. Verify that clicking the buttons toggles the display of content sections as expected.&lt;/p&gt;
+&lt;p&gt;&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;./final.webm&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; framespacing=&quot;0&quot; allowfullscreen=&quot;true&quot;&amp;gt; &amp;lt;/iframe&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Implementing accordion pane functionality in Dynamics 365 forms enhances user experience by providing an organized layout for displaying content. By following the steps outlined in this tutorial, you can customize your forms to include accordion panes and improve usability.&lt;/p&gt;
+</content:encoded></item><item><title>Implementing Role-Based Access Control using RetrieveMultiple Plugin</title><link>https://anu-prakash-dev.github.io/posts/retrievemulti/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/retrievemulti/</guid><description>Implementing Role-Based Access Control using RetrieveMultiple Plugin</description><pubDate>Wed, 18 Oct 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Implementing Role-Based Access Control using RetrieveMultiple Plugin&lt;/h1&gt;
+&lt;h2&gt;Project Setup&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Launch Visual Studio and create a new &lt;strong&gt;Class Library&lt;/strong&gt; project for your plugin&lt;/li&gt;
+&lt;li&gt;Add references to the necessary Dynamics 365 assemblies:
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Microsoft.Crm.Sdk.Proxy&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Microsoft.Xrm.Sdk&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;RetrieveMultiple Plugin Code Implementation&lt;/h2&gt;
+&lt;p&gt;This plugin restricts access to records in the Account entity based on the &quot;Dealer&quot; field value.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;using System;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
+using System.ServiceModel;
+using System.Linq;
+
+namespace RetrieveMultiplePlugin
+{
+    public class RestrictAccountRecords : IPlugin
+    {
+        public void Execute(IServiceProvider serviceProvider)
+        {
+            IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+            IOrganizationServiceFactory serviceFactory = (IOrganizationServiceFactory)serviceProvider.GetService(typeof(IOrganizationServiceFactory));
+            IOrganizationService service = serviceFactory.CreateOrganizationService(context.UserId);
+
+            // Check if the request is a RetrieveMultiple request for the Account entity
+            if (context.MessageName.Equals(&quot;RetrieveMultiple&quot;) &amp;amp;&amp;amp; 
+                context.InputParameters.Contains(&quot;Query&quot;) &amp;amp;&amp;amp; 
+                context.PrimaryEntityName == &quot;account&quot;)
+            {
+                EntityCollection resultCollection = new EntityCollection();
+                EntityCollection inputCollection = (EntityCollection)context.OutputParameters[&quot;BusinessEntityCollection&quot;];
+                
+                if (inputCollection != null &amp;amp;&amp;amp; inputCollection.Entities.Count &amp;gt; 0)
+                {
+                    foreach (Entity account in inputCollection.Entities)
+                    {
+                        // Check if the current user has the Dealer role
+                        bool userIsDealer = CheckUserIsDealer(context.UserId, service);
+
+                        if (userIsDealer)
+                        {
+                            // Check the value of the &quot;Dealer&quot; field
+                            if (account.Contains(&quot;new_dealerfield&quot;) &amp;amp;&amp;amp; (bool)account[&quot;new_dealerfield&quot;])
+                            {
+                                resultCollection.Entities.Add(account);
+                            }
+                        }
+                        else
+                        {
+                            // Allow access for non-Dealers
+                            resultCollection.Entities.Add(account);
+                        }
+                    }
+
+                    // Replace the original result with the filtered collection
+                    context.OutputParameters[&quot;BusinessEntityCollection&quot;] = resultCollection;
+                }
+            }
+        }
+
+        private bool CheckUserIsDealer(Guid userId, IOrganizationService service)
+        {
+            QueryExpression query = new QueryExpression(&quot;systemuser&quot;);
+            query.ColumnSet = new ColumnSet(&quot;systemuserid&quot;);
+            query.Criteria.AddCondition(&quot;systemuserid&quot;, ConditionOperator.Equal, userId);
+
+            EntityCollection userEntities = service.RetrieveMultiple(query);
+            Entity user = userEntities.Entities.FirstOrDefault();
+
+            if (user != null)
+            {
+                // Check if the user has the Dealer role
+                if (user.Contains(&quot;new_isdealer&quot;) &amp;amp;&amp;amp; (bool)user[&quot;new_isdealer&quot;])
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Registration and Deployment&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Build&lt;/strong&gt; the plugin project&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Sign&lt;/strong&gt; the assembly if required&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Register&lt;/strong&gt; the plugin assembly in your Dynamics 365 environment using:
+&lt;ul&gt;
+&lt;li&gt;Plugin Registration Tool&lt;/li&gt;
+&lt;li&gt;Package Deployer&lt;/li&gt;
+&lt;li&gt;Other registration methods&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Configure&lt;/strong&gt; the step for:
+&lt;ul&gt;
+&lt;li&gt;Message: &lt;code&gt;RetrieveMultiple&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Entity: &lt;code&gt;Account&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Deploy&lt;/strong&gt; and test your plugin&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Testing Procedure&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Dealer User Test&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Log in as a user with the &quot;Dealer&quot; role&lt;/li&gt;
+&lt;li&gt;Retrieve Account records&lt;/li&gt;
+&lt;li&gt;Should only see records where &quot;Dealer&quot; field = &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Non-Dealer User Test&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Log in as a regular user&lt;/li&gt;
+&lt;li&gt;Retrieve Account records&lt;/li&gt;
+&lt;li&gt;Should see all Account records&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Customization Notes&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Adjust the field names (&lt;code&gt;new_dealerfield&lt;/code&gt;, &lt;code&gt;new_isdealer&lt;/code&gt;) to match your schema&lt;/li&gt;
+&lt;li&gt;Modify role checking logic as per your security requirements&lt;/li&gt;
+&lt;li&gt;Consider adding error handling for production environments&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>Creating and Managing AutoNumber Fields in Dynamics 365 Using C# SDK</title><link>https://anu-prakash-dev.github.io/posts/autonumbersdk/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/autonumbersdk/</guid><description>Creating and Managing AutoNumber Fields in Dynamics 365 Using C# SDK</description><pubDate>Sun, 08 Oct 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Creating and Managing AutoNumber Fields in Dynamics 365 Using C# SDK&lt;/h1&gt;
+&lt;p&gt;AutoNumber fields in Dynamics 365 automatically generate unique identifiers for records, helping to streamline data management, improve record tracking, and enhance user experience. This guide covers creating, updating, and formatting AutoNumber fields using the Dynamics 365 C# SDK.&lt;/p&gt;
+&lt;h2&gt;Creating an AutoNumber Field&lt;/h2&gt;
+&lt;h3&gt;1. Initialize Your Dynamics 365 Service&lt;/h3&gt;
+&lt;p&gt;First establish a connection to your Dynamics 365 organization:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Initialize IOrganizationService or IOrganizationServiceFactory
+IOrganizationService _service = GetOrganizationService();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;2. Define the AutoNumber Field&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;StringAttributeMetadata autoNumberField = new StringAttributeMetadata
+{
+    LogicalName = &quot;new_autonumberfield&quot;,
+    DisplayName = new Label(&quot;AutoNumber Field&quot;, 1033),
+    RequiredLevel = new AttributeRequiredLevelManagedProperty(AttributeRequiredLevel.None),
+    MaxLength = 100,
+    AutoNumberFormat = &quot;AUTO-{SEQNUM:4}-{RANDSTRING:4}&quot;
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;3. Create the AutoNumber Field&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;CreateAttributeRequest createAutoNumberRequest = new CreateAttributeRequest
+{
+    EntityName = &quot;account&quot;, // Example: account entity
+    Attribute = autoNumberField
+};
+
+_service.Execute(createAutoNumberRequest);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Updating an Existing Field to AutoNumber&lt;/h2&gt;
+&lt;h3&gt;1. Retrieve the Existing Attribute&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;RetrieveAttributeRequest retrieveRequest = new RetrieveAttributeRequest
+{
+    EntityLogicalName = &quot;account&quot;,
+    LogicalName = &quot;existing_field&quot;,
+    RetrieveAsIfPublished = true
+};
+
+RetrieveAttributeResponse retrieveResponse = (RetrieveAttributeResponse)_service.Execute(retrieveRequest);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;2. Update the Attribute as AutoNumber&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;StringAttributeMetadata existingField = (StringAttributeMetadata)retrieveResponse.AttributeMetadata;
+existingField.AttributeType = AttributeTypeCode.String;
+existingField.AutoNumberFormat = &quot;NEW-AUTO-{SEQNUM:3}-{RANDSTRING:2}&quot;;
+
+UpdateAttributeRequest updateRequest = new UpdateAttributeRequest
+{
+    Attribute = existingField
+};
+
+_service.Execute(updateRequest);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Changing AutoNumber Field Format&lt;/h2&gt;
+&lt;p&gt;Follow the same steps as updating an existing field, but only modify the &lt;code&gt;AutoNumberFormat&lt;/code&gt; property:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;existingField.AutoNumberFormat = &quot;UPD-{SEQNUM:5}-{DATETIMEUTC:yyyyMMdd}&quot;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Setting the Seed Value&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;SetAutoNumberSeedRequest setSeedRequest = new SetAutoNumberSeedRequest
+{
+    EntityName = &quot;account&quot;,
+    AttributeName = &quot;new_autonumberfield&quot;,
+    Value = 5000 // Custom starting value
+};
+
+_service.Execute(setSeedRequest);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;AutoNumber Format Options&lt;/h2&gt;
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th&gt;Attribute&lt;/th&gt;
+&lt;th&gt;Token&lt;/th&gt;
 &lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Example Output&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code&gt;title&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;The title of the post.&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;{SEQNUM}&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Sequential number&lt;/td&gt;
+&lt;td&gt;1, 2, 3...&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code&gt;published&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;The date the post was published.&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;{SEQNUM:3}&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Sequential number with padding&lt;/td&gt;
+&lt;td&gt;001, 002...&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code&gt;description&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;A short description of the post. Displayed on index page.&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;{RANDSTRING}&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Random alphanumeric characters&lt;/td&gt;
+&lt;td&gt;A1B2&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code&gt;image&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;The cover image path of the post.&amp;lt;br/&amp;gt;1. Start with &lt;code&gt;http://&lt;/code&gt; or &lt;code&gt;https://&lt;/code&gt;: Use web image&amp;lt;br/&amp;gt;2. Start with &lt;code&gt;/&lt;/code&gt;: For image in &lt;code&gt;public&lt;/code&gt; dir&amp;lt;br/&amp;gt;3. With none of the prefixes: Relative to the markdown file&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;{RANDSTRING:4}&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Random string with specified length&lt;/td&gt;
+&lt;td&gt;X9Y8&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code&gt;tags&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;The tags of the post.&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;{DATETIMEUTC}&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Current UTC date/time&lt;/td&gt;
+&lt;td&gt;20230515&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td&gt;&lt;code&gt;category&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;The category of the post.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;code&gt;draft&lt;/code&gt;&lt;/td&gt;
-&lt;td&gt;If this post is still a draft, which won&apos;t be displayed.&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;{DATETIMEUTC:format}&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Custom datetime format&lt;/td&gt;
+&lt;td&gt;2023-05-15&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h2&gt;Where to Place the Post Files&lt;/h2&gt;
-&lt;p&gt;Your post files should be placed in &lt;code&gt;src/content/posts/&lt;/code&gt; directory. You can also create sub-directories to better organize your posts and assets.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;src/content/posts/
-├── post-1.md
-└── post-2/
-    ├── cover.png
-    └── index.md
-&lt;/code&gt;&lt;/pre&gt;
-</content:encoded></item><item><title>Markdown Example</title><link>https://anu-prakash-dev.github.io/posts/markdown/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/markdown/</guid><description>A simple example of a Markdown blog post.</description><pubDate>Sun, 01 Oct 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;An h1 header&lt;/h1&gt;
-&lt;p&gt;Paragraphs are separated by a blank line.&lt;/p&gt;
-&lt;p&gt;2nd paragraph. &lt;em&gt;Italic&lt;/em&gt;, &lt;strong&gt;bold&lt;/strong&gt;, and &lt;code&gt;monospace&lt;/code&gt;. Itemized lists
-look like:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;this one&lt;/li&gt;
-&lt;li&gt;that one&lt;/li&gt;
-&lt;li&gt;the other one&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Note that --- not considering the asterisk --- the actual text
-content starts at 4-columns in.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Block quotes are
-written like so.&lt;/p&gt;
-&lt;p&gt;They can span multiple paragraphs,
-if you like.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., &quot;it&apos;s all
-in chapters 12--14&quot;). Three dots ... will be converted to an ellipsis.
-Unicode is supported. ☺&lt;/p&gt;
-&lt;h2&gt;An h2 header&lt;/h2&gt;
-&lt;p&gt;Here&apos;s a numbered list:&lt;/p&gt;
+&lt;h2&gt;Best Practices&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;first item&lt;/li&gt;
-&lt;li&gt;second item&lt;/li&gt;
-&lt;li&gt;third item&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Plan your format carefully&lt;/strong&gt; - Changing formats later may require data migration&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Consider field length&lt;/strong&gt; - Ensure MaxLength accommodates your format&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Test thoroughly&lt;/strong&gt; - Verify behavior in development before production&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Document formats&lt;/strong&gt; - Maintain documentation of all AutoNumber formats used&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Set appropriate seeds&lt;/strong&gt; - For multi-environment scenarios, set different seeds to avoid overlaps&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Note again how the actual text starts at 4 columns in (4 characters
-from the left side). Here&apos;s a code sample:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;# Let me re-iterate ...
-for i in 1 .. 10 { do-something(i) }
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;As you probably guessed, indented 4 spaces. By the way, instead of
-indenting the block, you can use delimited blocks, if you like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;define foobar() {
-    print &quot;Welcome to flavor country!&quot;;
+&lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
+</content:encoded></item><item><title>Developing Dynamics 365 CE Forms with TypeScript and Visual Studio</title><link>https://anu-prakash-dev.github.io/posts/formsts/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/formsts/</guid><description>Developing Dynamics 365 CE Forms with TypeScript and Visual Studio</description><pubDate>Sat, 30 Sep 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Developing Dynamics 365 CE Forms with TypeScript and Visual Studio&lt;/h1&gt;
+&lt;p&gt;This guide explores how to develop Dynamics 365 forms using TypeScript, &lt;code&gt;@types/xrm&lt;/code&gt;, and Visual Studio for a more structured development approach.&lt;/p&gt;
+&lt;h2&gt;Create a TypeScript Project&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Open Visual Studio and create a new TypeScript project&lt;/li&gt;
+&lt;li&gt;Configure the &lt;code&gt;tsconfig.json&lt;/code&gt; file:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;ES6&quot;,
+    &quot;module&quot;: &quot;CommonJS&quot;,
+    &quot;outDir&quot;: &quot;./dist&quot;,
+    &quot;rootDir&quot;: &quot;./src&quot;,
+    &quot;strict&quot;: true,
+    &quot;esModuleInterop&quot;: true,
+    &quot;forceConsistentCasingInFileNames&quot;: true
+  },
+  &quot;include&quot;: [
+    &quot;./src/**/*.ts&quot;
+  ],
+  &quot;exclude&quot;: [
+    &quot;node_modules&quot;
+  ]
 }
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;(which makes copying &amp;amp; pasting easier). You can optionally mark the
-delimited block for Pandoc to syntax highlight it:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;import time
-# Quick, count to ten!
-for i in range(10):
-    # (but not *too* quick)
-    time.sleep(0.5)
-    print i
+&lt;h2&gt;Install @types/xrm&lt;/h2&gt;
+&lt;p&gt;Run in your project directory:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm install --save-dev @types/xrm
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;An h3 header&lt;/h3&gt;
-&lt;p&gt;Now a nested list:&lt;/p&gt;
+&lt;p&gt;This provides type definitions for Dynamics 365, enabling IntelliSense and type checking.&lt;/p&gt;
+&lt;h2&gt;Write TypeScript Code&lt;/h2&gt;
+&lt;p&gt;Create a TypeScript file (e.g., &lt;code&gt;dynamics365-form.ts&lt;/code&gt;):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import { PageExecutionContext } from &apos;@types/xrm&apos;;
+
+namespace MyD365FormValidation {
+    export function onLoad(executionContext: PageExecutionContext): void {
+        const formContext = executionContext.getFormContext();
+        
+        // Access form fields
+        const accountName = formContext.getAttribute(&quot;name&quot;).getValue();
+        console.log(`Account Name: ${accountName}`);
+
+        // Example field validation
+        const creditLimit = formContext.getAttribute(&quot;creditlimit&quot;);
+        if (creditLimit.getValue() &amp;gt; 100000) {
+            formContext.ui.setFormNotification(
+                &quot;Credit limit exceeds maximum threshold&quot;, 
+                &quot;ERROR&quot;, 
+                &quot;credit-limit-error&quot;
+            );
+        }
+    }
+
+    export function onSave(executionContext: PageExecutionContext): boolean {
+        const formContext = executionContext.getFormContext();
+        // Add save validation logic
+        return true; // Return false to prevent save
+    }
+}
+
+export { MyD365FormValidation };
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Compile TypeScript&lt;/h2&gt;
+&lt;p&gt;Run the TypeScript compiler:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;tsc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This generates JavaScript files in your &lt;code&gt;dist&lt;/code&gt; folder.&lt;/p&gt;
+&lt;h2&gt;Upload to Dynamics 365&lt;/h2&gt;
 &lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;First, get these ingredients:&lt;/p&gt;
+&lt;li&gt;Navigate to your Dynamics 365 environment&lt;/li&gt;
+&lt;li&gt;Open the form editor for your entity&lt;/li&gt;
+&lt;li&gt;Add a new web resource:
 &lt;ul&gt;
-&lt;li&gt;carrots&lt;/li&gt;
-&lt;li&gt;celery&lt;/li&gt;
-&lt;li&gt;lentils&lt;/li&gt;
+&lt;li&gt;Name: &lt;code&gt;new_/js/dynamics365-form.js&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Type: Script (JScript)&lt;/li&gt;
+&lt;li&gt;Upload your compiled JavaScript file&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Boil some water.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Dump everything in the pot and follow
-this algorithm:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt; find wooden spoon
- uncover pot
- stir
- cover pot
- balance wooden spoon precariously on pot handle
- wait 10 minutes
- goto first step (or shut off burner when done)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Do not bump wooden spoon or it will fall.&lt;/p&gt;
+&lt;li&gt;Add event handlers to call your functions:
+&lt;ul&gt;
+&lt;li&gt;Form &lt;code&gt;OnLoad&lt;/code&gt;: &lt;code&gt;MyD365FormValidation.onLoad&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Form &lt;code&gt;OnSave&lt;/code&gt;: &lt;code&gt;MyD365FormValidation.onSave&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Notice again how text always lines up on 4-space indents (including
-that last line which continues item 3 above).&lt;/p&gt;
-&lt;p&gt;Here&apos;s a link to &lt;a href=&quot;http://foo.bar&quot;&gt;a website&lt;/a&gt;, to a &lt;a href=&quot;local-doc.html&quot;&gt;local
-doc&lt;/a&gt;, and to a &lt;a href=&quot;#an-h2-header&quot;&gt;section heading in the current
-doc&lt;/a&gt;. Here&apos;s a footnote [^1].&lt;/p&gt;
-&lt;p&gt;[^1]: Footnote text goes here.&lt;/p&gt;
-&lt;p&gt;Tables can look like this:&lt;/p&gt;
-&lt;p&gt;size material color&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;9 leather brown
-10 hemp canvas natural
-11 glass transparent&lt;/p&gt;
-&lt;p&gt;Table: Shoes, their sizes, and what they&apos;re made of&lt;/p&gt;
-&lt;p&gt;(The above is the caption for the table.) Pandoc also supports
-multi-line tables:&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;keyword text&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;red Sunsets, apples, and
-other red or reddish
-things.&lt;/p&gt;
-&lt;p&gt;green Leaves, grass, frogs
-and other things it&apos;s
-not easy being.&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;A horizontal rule follows.&lt;/p&gt;
-&lt;hr /&gt;
-&lt;p&gt;Here&apos;s a definition list:&lt;/p&gt;
-&lt;p&gt;apples
-: Good for making applesauce.
-oranges
-: Citrus!
-tomatoes
-: There&apos;s no &quot;e&quot; in tomatoe.&lt;/p&gt;
-&lt;p&gt;Again, text is indented 4 spaces. (Put a blank line between each
-term/definition pair to spread things out more.)&lt;/p&gt;
-&lt;p&gt;Here&apos;s a &quot;line block&quot;:&lt;/p&gt;
-&lt;p&gt;| Line one
-| Line too
-| Line tree&lt;/p&gt;
-&lt;p&gt;and images can be specified like so:&lt;/p&gt;
-&lt;p&gt;Inline math equations go in like so: $\omega = d\phi / dt$. Display
-math should get its own line and be put in in double-dollarsigns:&lt;/p&gt;
-&lt;p&gt;$$I = \int \rho R^{2} dV$$&lt;/p&gt;
-&lt;p&gt;$$
-\begin{equation*}
-\pi
-=3.1415926535
-;8979323846;2643383279;5028841971;6939937510;5820974944
-;5923078164;0628620899;8628034825;3421170679;\ldots
-\end{equation*}
-$$&lt;/p&gt;
-&lt;p&gt;And note that you can backslash-escape any punctuation characters
-which you wish to be displayed literally, ex.: `foo`, *bar*, etc.&lt;/p&gt;
-</content:encoded></item><item><title>Include Video in the Posts</title><link>https://anu-prakash-dev.github.io/posts/video/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/video/</guid><description>This post demonstrates how to include embedded video in a blog post.</description><pubDate>Tue, 01 Aug 2023 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Just copy the embed code from YouTube or other platforms, and paste it in the markdown file.&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;---
-title: Include Video in the Post
-published: 2023-10-19
-// ...
----
+&lt;h2&gt;Best Practices&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Type Safety&lt;/strong&gt;: Leverage TypeScript interfaces for form attributes&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Modular Code&lt;/strong&gt;: Organize code into logical namespaces&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Error Handling&lt;/strong&gt;: Implement proper error handling&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Source Control&lt;/strong&gt;: Maintain TypeScript source files in version control&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Build Process&lt;/strong&gt;: Set up automated builds for compilation&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Example TypeScript Interface&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;interface AccountFormContext extends Xrm.FormContext {
+    getAttribute(attributeName: &quot;name&quot;): Xrm.Attributes.StringAttribute;
+    getAttribute(attributeName: &quot;creditlimit&quot;): Xrm.Attributes.NumberAttribute;
+    getAttribute(attributeName: &quot;createdon&quot;): Xrm.Attributes.DateAttribute;
+}
 
-&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;https://www.youtube.com/embed/5gIf0_xpFPI?si=N1WTorLKL0uwLsU_&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allowfullscreen&amp;gt;&amp;lt;/iframe&amp;gt;
+// Usage with typed context
+const typedFormContext = formContext as AccountFormContext;
+const createdDate = typedFormContext.getAttribute(&quot;createdon&quot;).getValue();
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;YouTube&lt;/h2&gt;
-&lt;p&gt;&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;https://www.youtube.com/embed/5gIf0_xpFPI?si=N1WTorLKL0uwLsU_&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; allowfullscreen&amp;gt;&amp;lt;/iframe&amp;gt;&lt;/p&gt;
-&lt;h2&gt;Bilibili&lt;/h2&gt;
-&lt;p&gt;&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;//player.bilibili.com/player.html?bvid=BV1fK4y1s7Qf&amp;amp;p=1&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; framespacing=&quot;0&quot; allowfullscreen=&quot;true&quot;&amp;gt; &amp;lt;/iframe&amp;gt;&lt;/p&gt;
+&lt;p&gt;This approach provides better IntelliSense and compile-time checking for your Dynamics 365 form development.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
 </content:encoded></item></channel></rss>
