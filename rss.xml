@@ -33,7 +33,7 @@ subgridControl.setVisible(true);  // Show
 &lt;p&gt;💡 Make sure the subgrid is already loaded before you try to add &lt;code&gt;addOnLoad&lt;/code&gt;. If you are adding this in &lt;code&gt;formContext&lt;/code&gt; &lt;code&gt;onLoad&lt;/code&gt;, you might have to add a delay till the subgrid control is available via formContext.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr /&gt;
-&lt;h2&gt;Save Event Handling&lt;/h2&gt;
+&lt;h3&gt;Save Event Handling&lt;/h3&gt;
 &lt;h3&gt;Trigger Function on Save:&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;function onSaveHandler(executionContext) {
     var eventArgs = executionContext.getEventArgs();
