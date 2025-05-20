@@ -1,4 +1,87 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://anu-prakash-dev.github.io/</link><language>en</language><item><title>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</title><link>https://anu-prakash-dev.github.io/posts/bpfsnippets/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/bpfsnippets/</guid><description>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</description><pubDate>Sat, 17 Aug 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;JavaScript Snippets to Manage BPF in Dynamics 365 CRM&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://anu-prakash-dev.github.io/</link><language>en</language><item><title>JavaScript Snippets to Manage Subgrid in Dynamics 365 CRM</title><link>https://anu-prakash-dev.github.io/posts/subgridsnippets/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/subgridsnippets/</guid><description>JavaScript Snippets to Manage Subgrid in Dynamics 365 CRM</description><pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Retrieve Subgrid Control:&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;var subgridControl = formContext.getControl(&quot;subgrid_name&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Get Selected Record IDs in Subgrid:&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;var selectedRecords = subgridControl.getGrid().getSelectedRows();
+
+selectedRecords.forEach(function (row) {
+    var recordId = row.getData().getEntity().getId(); // This returns the record GUID&quot;
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Refresh Subgrid:&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;subgridControl.refresh();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Hide/Show Subgrid:&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;subgridControl.setVisible(false); // Hide
+subgridControl.setVisible(true);  // Show
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Get Total Record Count in Subgrid:&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;var totalRecordCount = subgridControl.getGrid().getTotalRecordCount();
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Add Event Handler to Subgrid:&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;subgridControl.addOnLoad(function () {
+    // Custom logic
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;💡 Make sure the subgrid is already loaded before you try to add &lt;code&gt;addOnLoad&lt;/code&gt;. If you are adding this in &lt;code&gt;formContext&lt;/code&gt; &lt;code&gt;onLoad&lt;/code&gt;, you might have to add a delay till the subgrid control is available via formContext.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr /&gt;
+&lt;h2&gt;Save Event Handling&lt;/h2&gt;
+&lt;h3&gt;Trigger Function on Save:&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;function onSaveHandler(executionContext) {
+    var eventArgs = executionContext.getEventArgs();
+
+    // SaveMode values: 1 - Save, 70 - AutoSave
+    if (eventArgs.getSaveMode() === 1 || eventArgs.getSaveMode() === 70) {
+        // Custom logic
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;💡Attach this in the form designer or via &lt;code&gt;formContext.data.entity.addOnSave&lt;/code&gt; if needed.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;var SaveMode = {
+    Save: 1,
+    AutoSave: 70,
+    SaveAndClose: 2,
+    SaveAndNew: 59
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Prevent AutoSave:&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;function preventAutoSave(executionContext) {
+    var eventArgs = executionContext.getEventArgs();
+
+    if (eventArgs.getSaveMode() === 70) { // 70 is AutoSave
+        eventArgs.preventDefault();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h3&gt;Get Changed Attributes on Save:&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;function getChangedAttributesOnSave(executionContext) {
+    var formContext = executionContext.getFormContext();
+
+    formContext.data.entity.attributes.forEach(function (attribute) {
+        if (attribute.getIsDirty()) {
+            var logicalName = attribute.getName();
+            var newValue = attribute.getValue();
+
+            // Custom logic
+        }
+    });
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+</content:encoded></item><item><title>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</title><link>https://anu-prakash-dev.github.io/posts/bpfsnippets/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/bpfsnippets/</guid><description>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</description><pubDate>Sat, 17 Aug 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;JavaScript Snippets to Manage BPF in Dynamics 365 CRM&lt;/h1&gt;
 &lt;h2&gt;Get Active Process ID&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;var processId = formContext.data.process.getActiveProcess().getId();
 &lt;/code&gt;&lt;/pre&gt;
