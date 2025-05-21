@@ -4,8 +4,10 @@
 &lt;h2&gt;How to fix this rendering issue with undocumented isPropertyLoading Property&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;isPropertyLoading&lt;/code&gt; property is a boolean value passed through the PCF context that indicates whether the form properties are still loading:&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;💡Returns &lt;code&gt;true&lt;/code&gt; while the form is loading
-💡Returns &lt;code&gt;false&lt;/code&gt; when the form is loaded and the field values are available&lt;/p&gt;
+&lt;p&gt;💡Returns &lt;code&gt;true&lt;/code&gt; while the form is loading&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;💡Returns &lt;code&gt;false&lt;/code&gt; when the form is loaded and the field values are available&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2&gt;Implementation Solution&lt;/h2&gt;
 &lt;p&gt;Implement conditional rendering using &lt;code&gt;isPropertyLoading&lt;/code&gt;:&lt;/p&gt;
