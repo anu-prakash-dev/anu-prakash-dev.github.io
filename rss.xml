@@ -1,4 +1,34 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://anu-prakash-dev.github.io/</link><language>en</language><item><title>JavaScript Snippets to Manage Subgrid in Dynamics 365 CRM</title><link>https://anu-prakash-dev.github.io/posts/subgridsnippets/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/subgridsnippets/</guid><description>JavaScript Snippets to Manage Subgrid in Dynamics 365 CRM</description><pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Retrieve Subgrid Control:&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://anu-prakash-dev.github.io/</link><language>en</language><item><title>How to Handle Intermittent Null Values During PCF Control Initialization</title><link>https://anu-prakash-dev.github.io/posts/pcfnullonload/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/pcfnullonload/</guid><description>How to Handle Intermittent Null Values During PCF Control Initialization</description><pubDate>Wed, 21 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;How to Handle Intermittent Null Values During PCF Control Initialization&lt;/h1&gt;
+&lt;h2&gt;Problem with PCF Controls on Initialization&lt;/h2&gt;
+&lt;p&gt;There is a common issue when developing PCF controls, where the control loads before the form data is fully available. This causes the control to render with empty values even when data exists in the fields.&lt;/p&gt;
+&lt;h2&gt;How to fix this rendering issue with undocumented isPropertyLoading Property&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;isPropertyLoading&lt;/code&gt; property is a boolean value passed through the PCF context that indicates whether the form properties are still loading:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;💡Returns &lt;code&gt;true&lt;/code&gt; while the form is loading
+💡Returns &lt;code&gt;false&lt;/code&gt; when the form is loaded and the field values are available&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Implementation Solution&lt;/h2&gt;
+&lt;p&gt;Implement conditional rendering using &lt;code&gt;isPropertyLoading&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public updateView(context: ComponentFramework.Context&amp;lt;IInputs&amp;gt;): React.ReactElement {
+    //@ts-ignore
+    let isPropertyLoading:boolean = context.parameters.textField.isPropertyLoading;
+    
+    if(!isPropertyLoading){
+        // Render your actual component with data
+        const props: IStringChekerProps = {
+            defaultValue: context.parameters.textField.raw!,
+        }
+        return React.createElement(StringCheker, props);
+    }
+    else {
+        // Return empty element while loading
+        return React.createElement(&quot;div&quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;This approach ensures the control only renders when the data is actually available, preventing empty displays during initial load.&lt;/p&gt;
+</content:encoded></item><item><title>JavaScript Snippets to Manage Subgrid in Dynamics 365 CRM</title><link>https://anu-prakash-dev.github.io/posts/subgridsnippets/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/subgridsnippets/</guid><description>JavaScript Snippets to Manage Subgrid in Dynamics 365 CRM</description><pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Retrieve Subgrid Control:&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;var subgridControl = formContext.getControl(&quot;subgrid_name&quot;);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
