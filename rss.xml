@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://anu-prakash-dev.github.io/</link><language>en</language><item><title>How to Handle Intermittent Null Values During PCF Control Initialization</title><link>https://anu-prakash-dev.github.io/posts/pcfnullonload/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/pcfnullonload/</guid><description>How to Handle Intermittent Null Values During PCF Control Initialization</description><pubDate>Wed, 21 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;How to Handle Intermittent Null Values During PCF Control Initialization&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://crmte.ch/</link><language>en</language><item><title>How to Handle Intermittent Null Values During PCF Control Initialization</title><link>https://crmte.ch/posts/pcfnullonload/</link><guid isPermaLink="true">https://crmte.ch/posts/pcfnullonload/</guid><description>How to Handle Intermittent Null Values During PCF Control Initialization</description><pubDate>Wed, 21 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;How to Handle Intermittent Null Values During PCF Control Initialization&lt;/h1&gt;
 &lt;h2&gt;Problem with PCF Controls on Initialization&lt;/h2&gt;
 &lt;p&gt;There is a common issue when developing PCF controls, where the control loads before the form data is fully available. This causes the control to render with empty values even when data exists in the fields.&lt;/p&gt;
 &lt;h2&gt;How to fix this rendering issue with undocumented isPropertyLoading Property&lt;/h2&gt;
@@ -30,7 +30,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;This approach ensures the control only renders when the data is actually available, preventing empty displays during initial load.&lt;/p&gt;
-</content:encoded></item><item><title>JavaScript Snippets to Manage Subgrid in Dynamics 365 CRM</title><link>https://anu-prakash-dev.github.io/posts/subgridsnippets/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/subgridsnippets/</guid><description>JavaScript Snippets to Manage Subgrid in Dynamics 365 CRM</description><pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Retrieve Subgrid Control:&lt;/h3&gt;
+</content:encoded></item><item><title>JavaScript Snippets to Manage Subgrid in Dynamics 365 CRM</title><link>https://crmte.ch/posts/subgridsnippets/</link><guid isPermaLink="true">https://crmte.ch/posts/subgridsnippets/</guid><description>JavaScript Snippets to Manage Subgrid in Dynamics 365 CRM</description><pubDate>Tue, 20 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Retrieve Subgrid Control:&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;var subgridControl = formContext.getControl(&quot;subgrid_name&quot;);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
@@ -113,7 +113,7 @@ subgridControl.setVisible(true);  // Show
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
-</content:encoded></item><item><title>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</title><link>https://anu-prakash-dev.github.io/posts/bpfsnippets/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/bpfsnippets/</guid><description>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</description><pubDate>Sat, 17 Aug 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;JavaScript Snippets to Manage BPF in Dynamics 365 CRM&lt;/h1&gt;
+</content:encoded></item><item><title>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</title><link>https://crmte.ch/posts/bpfsnippets/</link><guid isPermaLink="true">https://crmte.ch/posts/bpfsnippets/</guid><description>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</description><pubDate>Sat, 17 Aug 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;JavaScript Snippets to Manage BPF in Dynamics 365 CRM&lt;/h1&gt;
 &lt;h2&gt;Get Active Process ID&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;var processId = formContext.data.process.getActiveProcess().getId();
 &lt;/code&gt;&lt;/pre&gt;
@@ -218,7 +218,7 @@ function myStageChangeFunction() {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Switches to a different stage within the current BPF using its stage ID.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-</content:encoded></item><item><title>Using Power Platform Tools to develop Plugins in Visual Studio 2022</title><link>https://anu-prakash-dev.github.io/posts/pptoolswalk/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/pptoolswalk/</guid><description>Using Power Platform Tools to develop Plugins in Visual Studio 2022</description><pubDate>Sun, 28 Jul 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Using Power Platform Tools to develop Plugins in Visual Studio 2022&lt;/h1&gt;
+</content:encoded></item><item><title>Using Power Platform Tools to develop Plugins in Visual Studio 2022</title><link>https://crmte.ch/posts/pptoolswalk/</link><guid isPermaLink="true">https://crmte.ch/posts/pptoolswalk/</guid><description>Using Power Platform Tools to develop Plugins in Visual Studio 2022</description><pubDate>Sun, 28 Jul 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Using Power Platform Tools to develop Plugins in Visual Studio 2022&lt;/h1&gt;
 &lt;p&gt;Power Platform tools allow you to build, debug, and manage Solutions, Plugins, Webresources, and other Power Platform components directly within Visual Studio. Let’s walk through the process of using Power Platform tools in Visual Studio 2022, with screenshots included for each step.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Install Power Platform Tools&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -266,7 +266,7 @@ function myStageChangeFunction() {
 &lt;p&gt;&lt;img src=&quot;Aspose.Words.0a6e8104-c521-4bf6-85fd-e38b6887affb.022.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Congratulations! You have successfully installed and used Power Platform tools in Visual Studio 2022. You can now create, manage, and debug your Power Apps directly within Visual Studio. Explore further to utilize more features and enhance your Power Platform development experience&lt;/p&gt;
-</content:encoded></item><item><title>How to Develop PCF Controls Using Vanilla JavaScript</title><link>https://anu-prakash-dev.github.io/posts/pcfplainjs/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/pcfplainjs/</guid><description>How to Develop PCF Controls Using Vanilla JavaScript</description><pubDate>Sat, 18 May 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;How to Develop PCF Controls Using Vanilla JavaScript&lt;/h1&gt;
+</content:encoded></item><item><title>How to Develop PCF Controls Using Vanilla JavaScript</title><link>https://crmte.ch/posts/pcfplainjs/</link><guid isPermaLink="true">https://crmte.ch/posts/pcfplainjs/</guid><description>How to Develop PCF Controls Using Vanilla JavaScript</description><pubDate>Sat, 18 May 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;How to Develop PCF Controls Using Vanilla JavaScript&lt;/h1&gt;
 &lt;p&gt;PowerApps Component Framework (PCF) allows developers to create custom components that can be used within PowerApps. In this tutorial, we will walk through the process of creating a simple PCF control using vanilla JavaScript.&lt;/p&gt;
 &lt;h2&gt;Prerequisites&lt;/h2&gt;
 &lt;ul&gt;
@@ -359,7 +359,7 @@ module.exports = {PCFCustCtrl}
 &lt;p&gt;You have now created a basic PCF control using vanilla JavaScript. This control can be extended with more functionality and customized to meet your specific needs. PCF provides a powerful way to create rich, interactive components that can be used within PowerApps.&lt;/p&gt;
 &lt;p&gt;Feel free to experiment with the control and add more features as you learn more about PCF.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-</content:encoded></item><item><title>To implement Accordion Pane functionality in Dynamics 365 CE using Custom Web resources</title><link>https://anu-prakash-dev.github.io/posts/accordion/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/accordion/</guid><description>To implement Accordion Pane functionality in Dynamics 365 CE using Custom Web resources</description><pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;To implement Accordion Pane functionality in Dynamics 365 CE using Custom Web resources&lt;/h1&gt;
+</content:encoded></item><item><title>To implement Accordion Pane functionality in Dynamics 365 CE using Custom Web resources</title><link>https://crmte.ch/posts/accordion/</link><guid isPermaLink="true">https://crmte.ch/posts/accordion/</guid><description>To implement Accordion Pane functionality in Dynamics 365 CE using Custom Web resources</description><pubDate>Wed, 01 May 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;To implement Accordion Pane functionality in Dynamics 365 CE using Custom Web resources&lt;/h1&gt;
 &lt;p&gt;Often, businesses require customized functionalities to streamline processes and enhance user experience. I got to work on one such customization is to implement an accordion pane like functionality using custom Webresources(html and js). Let&apos;s walk through the steps to implement accordion pane functionality in Dynamics 365 forms, allowing users to toggle between sections of related content.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Create HTML Web Resources&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;For accordion button, create a HTML web resource. This web resource will contain the HTML and JavaScript code to handle the accordion functionality.&lt;/p&gt;
@@ -509,7 +509,7 @@ module.exports = {PCFCustCtrl}
 &lt;p&gt;&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;./final.webm&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; framespacing=&quot;0&quot; allowfullscreen=&quot;true&quot;&amp;gt; &amp;lt;/iframe&amp;gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Implementing accordion pane functionality in Dynamics 365 forms enhances user experience by providing an organized and clutter-free layout for displaying content. By following the steps outlined in this tutorial, you can customize your forms to include accordion panes and improve usability.&lt;/p&gt;
-</content:encoded></item><item><title>Implementing Role-Based Access Control using RetrieveMultiple Plugin</title><link>https://anu-prakash-dev.github.io/posts/retrievemulti/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/retrievemulti/</guid><description>Implementing Role-Based Access Control using RetrieveMultiple Plugin</description><pubDate>Wed, 18 Oct 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Implementing Role-Based Access Control using RetrieveMultiple Plugin&lt;/h1&gt;
+</content:encoded></item><item><title>Implementing Role-Based Access Control using RetrieveMultiple Plugin</title><link>https://crmte.ch/posts/retrievemulti/</link><guid isPermaLink="true">https://crmte.ch/posts/retrievemulti/</guid><description>Implementing Role-Based Access Control using RetrieveMultiple Plugin</description><pubDate>Wed, 18 Oct 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Implementing Role-Based Access Control using RetrieveMultiple Plugin&lt;/h1&gt;
 &lt;h2&gt;Project Setup&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;Launch Visual Studio and create a new &lt;strong&gt;Class Library&lt;/strong&gt; project for your plugin&lt;/li&gt;
@@ -642,7 +642,7 @@ namespace RetrieveMultiplePlugin
 &lt;li&gt;Consider adding error handling for production environments&lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-</content:encoded></item><item><title>Creating and Managing AutoNumber Fields in Dynamics 365 CE Using C# SDK</title><link>https://anu-prakash-dev.github.io/posts/autonumbersdk/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/autonumbersdk/</guid><description>Creating and Managing AutoNumber Fields in Dynamics 365 Using C# SDK</description><pubDate>Sun, 08 Oct 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Creating and Managing AutoNumber Fields in Dynamics 365 CE Using C# SDK&lt;/h1&gt;
+</content:encoded></item><item><title>Creating and Managing AutoNumber Fields in Dynamics 365 CE Using C# SDK</title><link>https://crmte.ch/posts/autonumbersdk/</link><guid isPermaLink="true">https://crmte.ch/posts/autonumbersdk/</guid><description>Creating and Managing AutoNumber Fields in Dynamics 365 Using C# SDK</description><pubDate>Sun, 08 Oct 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Creating and Managing AutoNumber Fields in Dynamics 365 CE Using C# SDK&lt;/h1&gt;
 &lt;p&gt;AutoNumber fields in Dynamics 365 automatically generate unique identifiers for records, helping to streamline data management, improve record tracking, and enhance user experience.  Let&apos;s walk through the steps to create, update, and format AutoNumber fields using the Dynamics 365 C# SDK.&lt;/p&gt;
 &lt;h2&gt;Creating an AutoNumber Field&lt;/h2&gt;
 &lt;h3&gt;1. Initialize Your Dynamics 365 Service&lt;/h3&gt;
@@ -757,7 +757,7 @@ _service.Execute(setSeedRequest);
 &lt;li&gt;&lt;strong&gt;Set appropriate seeds&lt;/strong&gt; - For multi-environment scenarios, set different seeds to avoid overlaps --&amp;gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre&gt;&lt;code&gt;&lt;/code&gt;&lt;/pre&gt;
-</content:encoded></item><item><title>Developing Dynamics 365 CE Forms with TypeScript and Visual Studio</title><link>https://anu-prakash-dev.github.io/posts/formsts/</link><guid isPermaLink="true">https://anu-prakash-dev.github.io/posts/formsts/</guid><description>Developing Dynamics 365 CE Forms with TypeScript and Visual Studio</description><pubDate>Sat, 30 Sep 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Developing Dynamics 365 CE Forms with TypeScript and Visual Studio&lt;/h1&gt;
+</content:encoded></item><item><title>Developing Dynamics 365 CE Forms with TypeScript and Visual Studio</title><link>https://crmte.ch/posts/formsts/</link><guid isPermaLink="true">https://crmte.ch/posts/formsts/</guid><description>Developing Dynamics 365 CE Forms with TypeScript and Visual Studio</description><pubDate>Sat, 30 Sep 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Developing Dynamics 365 CE Forms with TypeScript and Visual Studio&lt;/h1&gt;
 &lt;p&gt;This guide explores how to develop Dynamics 365 forms using TypeScript, &lt;code&gt;@types/xrm&lt;/code&gt;, and Visual Studio for a more structured development approach.&lt;/p&gt;
 &lt;h2&gt;Create a TypeScript Project&lt;/h2&gt;
 &lt;ol&gt;
