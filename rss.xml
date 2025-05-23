@@ -61,7 +61,7 @@ parsedXML.getElementsByTagName(&quot;entity&quot;)[0].childNodes.forEach(functio
 </content:encoded></item><item><title>How to Handle Intermittent Null Values During PCF Control Initialization</title><link>https://crmte.ch/posts/pcfnullonload/</link><guid isPermaLink="true">https://crmte.ch/posts/pcfnullonload/</guid><description>How to Handle Intermittent Null Values During PCF Control Initialization</description><pubDate>Wed, 21 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;How to Handle Intermittent Null Values During PCF Control Initialization&lt;/h1&gt;
 &lt;h2&gt;Problem with PCF Controls on Initialization&lt;/h2&gt;
 &lt;p&gt;There is a common issue when developing PCF controls, where the control loads before the form data is fully available. This causes the control to render with empty values even when data exists in the fields.&lt;/p&gt;
-&lt;h2&gt;How to fix this rendering issue with undocumented isPropertyLoading Property&lt;/h2&gt;
+&lt;h2&gt;How to fix this rendering issue with undocumented &lt;code&gt;isPropertyLoading&lt;/code&gt; Property&lt;/h2&gt;
 &lt;p&gt;The &lt;code&gt;isPropertyLoading&lt;/code&gt; property is a boolean value passed through the PCF context that indicates whether the form properties are still loading:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;💡Returns &lt;code&gt;true&lt;/code&gt; while the form is loading&lt;/p&gt;
@@ -76,14 +76,14 @@ parsedXML.getElementsByTagName(&quot;entity&quot;)[0].childNodes.forEach(functio
     let isPropertyLoading:boolean = context.parameters.textField.isPropertyLoading;
     
     if(!isPropertyLoading){
-        // Render your actual component with data
-        const props: IStringChekerProps = {
-            defaultValue: context.parameters.textField.raw!,
+        // Render your actual component when data is ready
+        const props: IAutoCompleteUIProps = {
+            searchValue: context.parameters.textField.raw!,
         }
-        return React.createElement(StringCheker, props);
+        return React.createElement(AutoCompleteUI, props);
     }
     else {
-        // Return empty element while loading
+        // Return empty element
         return React.createElement(&quot;div&quot;);
     }
 }
