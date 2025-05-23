@@ -18,10 +18,10 @@ var parsedXML = myParser.parseFromString(fetchQuery, &quot;text/xml&quot;);
 &lt;p&gt;This converts the FetchXML string into an &lt;code&gt;parsedXML&lt;/code&gt; object that can be manipulated.&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h3&gt;Create a new &lt;code&gt;&amp;lt;condition&amp;gt;&lt;/code&gt; node&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;var myNode = document.createElement(&quot;condition&quot;);
-myNode.setAttribute(&quot;attribute&quot;, &quot;quoteid&quot;);
-myNode.setAttribute(&quot;operator&quot;, &quot;eq&quot;);
-myNode.setAttribute(&quot;value&quot;, quoteId);
+&lt;pre&gt;&lt;code&gt;var newConditionNode = document.createElement(&quot;condition&quot;);
+newConditionNode.setAttribute(&quot;attribute&quot;, &quot;quoteid&quot;);
+newConditionNode.setAttribute(&quot;operator&quot;, &quot;eq&quot;);
+newConditionNode.setAttribute(&quot;value&quot;, quoteId);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This condition filters records where &lt;code&gt;quoteid == quoteId&lt;/code&gt;.&lt;/p&gt;
 &lt;hr /&gt;
@@ -30,18 +30,18 @@ myNode.setAttribute(&quot;value&quot;, quoteId);
 parsedXML.getElementsByTagName(&quot;entity&quot;)[0].childNodes.forEach(function (xmlnode) {
     if (xmlnode.tagName == &quot;filter&quot;) {
         filterTagFoundFlag = true;
-        xmlnode.appendChild(myNode);
+        xmlnode.appendChild(newConditionNode);
     }
 });
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
 &lt;h3&gt;If no &lt;code&gt;&amp;lt;filter&amp;gt;&lt;/code&gt; node was found, create a new node, add the &lt;code&gt;condition&lt;/code&gt; to the new node using &lt;code&gt;appendChild()&lt;/code&gt;, and append it to the &lt;code&gt;&amp;lt;entity&amp;gt;&lt;/code&gt;.&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;if (filterTagFoundFlag == false) {
-    var nodeFilter = document.createElement(&quot;filter&quot;);
-    nodeFilter.setAttribute(&quot;type&quot;, &quot;and&quot;);
-    nodeFilter.appendChild(myNode);
+    var newFilterNode = document.createElement(&quot;filter&quot;);
+    newFilterNode.setAttribute(&quot;type&quot;, &quot;and&quot;);
+    newFilterNode.appendChild(newConditionNode);
 
-    parsedXML.getElementsByTagName(&quot;entity&quot;)[0].appendChild(nodeFilter);
+    parsedXML.getElementsByTagName(&quot;entity&quot;)[0].appendChild(newFilterNode);
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
@@ -50,14 +50,12 @@ parsedXML.getElementsByTagName(&quot;entity&quot;)[0].childNodes.forEach(functio
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
 &lt;h3&gt;Usage of this code&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;I have implemented a very basic sample to append filter condition to the fetchxml which can be extended to implement complex solutions. This solution might be useful for below scenarios.
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I have implemented a very basic sample to append filter condition to the fetchxml which can be extended to implement complex solutions and I hope this solution might be useful for below scenarios.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;When building dynamic queries based on user inputs&lt;/li&gt;
 &lt;li&gt;Reusing same filters for dynamic reports, Form scripts, Subgrid filters etc&lt;/li&gt;
 &lt;li&gt;Ribbon button JavaScript&lt;/li&gt;
-&lt;li&gt;Custom web resources when dynamic filtering is required&lt;/li&gt;
-&lt;li&gt;Custom PCF controls that need dynamic filtering&lt;/li&gt;
+&lt;li&gt;Custom Web resources, PCF Controls when dynamic filtering is required&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr /&gt;
 </content:encoded></item><item><title>How to Handle Intermittent Null Values During PCF Control Initialization</title><link>https://crmte.ch/posts/pcfnullonload/</link><guid isPermaLink="true">https://crmte.ch/posts/pcfnullonload/</guid><description>How to Handle Intermittent Null Values During PCF Control Initialization</description><pubDate>Wed, 21 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;How to Handle Intermittent Null Values During PCF Control Initialization&lt;/h1&gt;
