@@ -45,14 +45,14 @@ parsedXML.getElementsByTagName(&quot;entity&quot;)[0].childNodes.forEach(functio
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
-&lt;h3&gt;Rebuild the FetchXML string and remove unwanted namespace attributes and encode the query for API use&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;fetchQuery = parsedXML.documentElement.outerHTML.replaceAll(&apos;xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&apos;, &quot;&quot;);
-var myResultQuery = &quot;?fetchXml=&quot; + encodeURIComponent(fetchQuery);
+&lt;h3&gt;Rebuild the FetchXML string and remove unwanted namespace attributes&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;var myResultQuery = parsedXML.documentElement.outerHTML.replaceAll(&apos;xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&apos;, &quot;&quot;);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
 &lt;h3&gt;Usage of this code&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;I have implemented a very basic sample to append filter condition to the fetchxml which can be extended to implement complex solutions. This solution might be useful for below scenarios.
+&lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
-&lt;li&gt;I have implemented as very basic sample to append filter condition to the fetchxml which can be extended to implement complex solutions&lt;/li&gt;
 &lt;li&gt;When building dynamic queries based on user inputs&lt;/li&gt;
 &lt;li&gt;Reusing same filters for dynamic reports, Form scripts, Subgrid filters etc&lt;/li&gt;
 &lt;li&gt;Ribbon button JavaScript&lt;/li&gt;
