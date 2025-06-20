@@ -263,7 +263,7 @@ function selectEntity(entity) {
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;&amp;lt;video width=&quot;640&quot; controls&amp;gt;
+&lt;p&gt;&amp;lt;video width=&quot;800&quot; controls&amp;gt;
 &amp;lt;source src=&quot;/videos/entitylookup/final.webm&quot; type=&quot;video/webm&quot; /&amp;gt;
 Your browser does not support the video tag.
 &amp;lt;/video&amp;gt;&lt;/p&gt;
@@ -815,7 +815,7 @@ module.exports = {PCFCustCtrl}
 &lt;li&gt;Section 3: Button web resource for the second accordion pane&lt;/li&gt;
 &lt;li&gt;Section 4: Content for the second accordion pane&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&amp;lt;video width=&quot;640&quot; controls&amp;gt;
+&lt;p&gt;&amp;lt;video width=&quot;800&quot; controls&amp;gt;
 &amp;lt;source src=&quot;/videos/accordion/initial.webm&quot; type=&quot;video/webm&quot; /&amp;gt;
 Your browser does not support the video tag.
 &amp;lt;/video&amp;gt;&lt;/p&gt;
@@ -846,7 +846,7 @@ Your browser does not support the video tag.
 &lt;p&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.003.jpeg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.004.jpeg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.005.jpeg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.002.jpeg&quot; alt=&quot;ref1&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Test the Accordion Functionality&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Save and publish your form customization changes, then test the accordion functionality within the Dynamics 365 environment. Verify that clicking the buttons toggles the display of content sections as expected.&lt;/p&gt;
-&lt;p&gt;&amp;lt;video width=&quot;640&quot; controls&amp;gt;
+&lt;p&gt;&amp;lt;video width=&quot;800&quot; controls&amp;gt;
 &amp;lt;source src=&quot;/videos/accordion/final.webm&quot; type=&quot;video/webm&quot; /&amp;gt;
 Your browser does not support the video tag.
 &amp;lt;/video&amp;gt;&lt;/p&gt;
