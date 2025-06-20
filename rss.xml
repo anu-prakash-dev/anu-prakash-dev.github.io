@@ -1,4 +1,281 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://crmte.ch/</link><language>en</language><item><title>Dynamically Modify FetchXML Using JavaScript in Dynamics 365 CRM</title><link>https://crmte.ch/posts/fetchxmlonruntime/</link><guid isPermaLink="true">https://crmte.ch/posts/fetchxmlonruntime/</guid><description>Dynamically Modify FetchXML Using JavaScript in Dynamics 365 CRM</description><pubDate>Fri, 23 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Dynamically Modify FetchXML Using JavaScript in Dynamics 365 CRM&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://crmte.ch/</link><language>en</language><item><title>To build an Entity Metadata Lookup in Dynamics 365 CE using Web resources(Iframe)</title><link>https://crmte.ch/posts/entitylookup/</link><guid isPermaLink="true">https://crmte.ch/posts/entitylookup/</guid><description>To implement Entity Metadata Lookup in Dynamics 365 CE using Web resources(Iframe)</description><pubDate>Fri, 20 Jun 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;To build an &lt;strong&gt;Entity Metadata Lookup&lt;/strong&gt; in Dynamics 365 CRM using Web Resources, using below:&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Use &lt;code&gt;Xrm.Navigation.navigateTo&lt;/code&gt; for dialog to display list of Entities&lt;/li&gt;
+&lt;li&gt;Passing the target CRM field dynamically via form parameters (&lt;code&gt;data=fieldName=...&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Retrieve entity metadata using Webapi call to &lt;code&gt;/api/data/v9.2/EntityDefinitions&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Filter the retrieved result using &lt;code&gt;filter&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Write the selection back to the correct CRM field using &lt;code&gt;window.top.globalformContext&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;h1&gt;To build an Entity Metadata Lookup in Dynamics 365 CE using Web resources(Iframe) with Dynamic Field Binding&lt;/h1&gt;
+&lt;p&gt;In this tutorial, I will walk you through the steps to build a &lt;strong&gt;custom entity metadata lookup&lt;/strong&gt; using HTML + JavaScript web resources in &lt;strong&gt;Dynamics 365 CE&lt;/strong&gt;. This component allows users to search for and select an entity (table) from metadata and write the selected logical name to any form field dynamically.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;File Name and Usage&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;File&lt;/th&gt;
+&lt;th&gt;Purpose&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lookup.html&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Embedded on the CRM form to show the selected entity and button to open dialog&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lookup.js&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;To Open dialog and to return selected entity&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lookup_dialog.html&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Modal dialog to show entity list from Webapi&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;lookup_dialog.js&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Logic to Load metadata, filter, and to return selected entity&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr /&gt;
+&lt;h2&gt;Folder Structure&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;WebResources/
+├── lookup.html
+├── lookup.js
+├── lookup_dialog.html
+└── lookup_dialog.js
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h2&gt;&lt;code&gt;lookup.html&lt;/code&gt; to show the selected entity and the button to open lookup dialog&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;title&amp;gt;Entity Metadata Lookup&amp;lt;/title&amp;gt;
+  &amp;lt;script src=&quot;lookup.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body onload=&quot;initializeLookup()&quot;&amp;gt;
+    &amp;lt;div class=&quot;label&quot;&amp;gt;Entity Name&amp;lt;/div&amp;gt;
+    &amp;lt;div class=&quot;container&quot;&amp;gt;
+      &amp;lt;div id=&quot;selected-entity&quot;&amp;gt;No entity selected&amp;lt;/div&amp;gt;
+      &amp;lt;button onclick=&quot;clearData()&quot; id=&quot;clear-button&quot;&amp;gt;X&amp;lt;/button&amp;gt;
+      &amp;lt;button onclick=&quot;openLookupDialog()&quot;&amp;gt;Select Entity&amp;lt;/button&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h2&gt;&lt;code&gt;lookup.js&lt;/code&gt; to handle logic to display the crm field value and to display the selected entity based on the selection returned from the dialog&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;let selectedEntityField = &quot;&quot;;
+let formContext = null;
+
+function initializeLookup() {
+
+  const params = new URLSearchParams(window.location.search);
+  const rawData = decodeURIComponent(params.get(&quot;data&quot;) || &quot;&quot;);
+  const parsedData = Object.fromEntries(new URLSearchParams(rawData));
+  selectedEntityField = parsedData.fieldName;
+
+  var interval = setInterval(() =&amp;gt; {
+    if (window.top.OrchestratorFormContext) {
+      clearInterval(interval);
+      formContext = window.top.OrchestratorFormContext;
+      if (formContext?.getAttribute(selectedEntityField)) {
+        document.getElementById(&quot;selected-entity&quot;).innerText = formContext.getAttribute(selectedEntityField).getValue();
+      }
+    }
+  }, 2000);
+}
+
+function clearData() {
+  if (formContext &amp;amp;&amp;amp; formContext?.getAttribute(selectedEntityField)) {
+    formContext.getAttribute(selectedEntityField).setValue(null);
+    document.getElementById(&quot;selected-entity&quot;).innerText = &quot;&quot;;
+  }
+}
+function openLookupDialog() {
+  if (selectedEntityField === &quot;&quot;) {
+    alert(&quot;Please select an entity field.&quot;);
+    return;
+  }
+  const pageInput = {
+    pageType: &quot;webresource&quot;,
+    webresourceName: &quot;anuprakash_entity_lookup_/lookup_dialog.html&quot;,
+    data: &quot;&quot;
+  };
+
+  const navigationOptions = {
+    target: 2,
+    width: 700,
+    height: 400,
+    position: 1
+  };
+
+  parent.Xrm.Navigation.navigateTo(pageInput, navigationOptions).then((result) =&amp;gt; {
+    if (result &amp;amp;&amp;amp; result.returnValue?.selectedEntity) {
+      debugger;
+      const entity = result.returnValue;
+      document.getElementById(&quot;selected-entity&quot;).innerText = entity.selectedEntity.logicalName;
+
+      if (formContext?.getAttribute(selectedEntityField)) {
+        formContext.getAttribute(selectedEntityField).setValue(entity.selectedEntity.logicalName);
+      }
+    }
+  });
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h2&gt;&lt;code&gt;lookup\_dialog.html&lt;/code&gt; to display the entity metadata results as html table&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;title&amp;gt;Select Entity&amp;lt;/title&amp;gt;
+  &amp;lt;script src=&quot;lookup_dialog.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body onload=&quot;initializeDialog()&quot;&amp;gt;
+    &amp;lt;input
+      type=&quot;text&quot;
+      id=&quot;searchBox&quot;
+      placeholder=&quot;Search entities...&quot;
+      oninput=&quot;filterEntities()&quot;
+    /&amp;gt;
+    &amp;lt;table border=&quot;1&quot; id=&quot;entityTable&quot; class=&quot;floating-header&quot;&amp;gt;
+      &amp;lt;thead&amp;gt;
+        &amp;lt;tr&amp;gt;
+          &amp;lt;th&amp;gt;Display Name&amp;lt;/th&amp;gt;
+          &amp;lt;th&amp;gt;Logical Name&amp;lt;/th&amp;gt;
+        &amp;lt;/tr&amp;gt;
+      &amp;lt;/thead&amp;gt;
+      &amp;lt;tbody id=&quot;entityTableBody&quot;&amp;gt;&amp;lt;/tbody&amp;gt;
+    &amp;lt;/table&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h2&gt;&lt;code&gt;lookup\_dialog.js&lt;/code&gt; to handle logic to display the entity metadata results and to return the selected entity on click of table row&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;let allEntities = [];
+
+function initializeDialog() {
+  fetchEntities().then(data =&amp;gt; {
+    allEntities = data;
+    renderTable(allEntities);
+  });
+}
+
+async function fetchEntities() {
+  const url = parent.Xrm.Utility.getGlobalContext().getClientUrl() + &quot;/api/data/v9.2/EntityDefinitions?$select=LogicalName,DisplayName,IsCustomEntity&quot;;
+
+  const response = await fetch(url, {
+    headers: {
+      &quot;OData-MaxVersion&quot;: &quot;4.0&quot;,
+      &quot;OData-Version&quot;: &quot;4.0&quot;,
+      &quot;Accept&quot;: &quot;application/json&quot;,
+      &quot;Content-Type&quot;: &quot;application/json; charset=utf-8&quot;,
+      &quot;Prefer&quot;: &quot;odata.include-annotations=*&quot;
+    },
+    credentials: &quot;same-origin&quot;
+  });
+
+  const json = await response.json();
+  return json.value.map(e =&amp;gt; ({
+    logicalName: e.LogicalName,
+    displayName: e.DisplayName?.UserLocalizedLabel?.Label ?? e.LogicalName
+  }));
+}
+
+function renderTable(entities) {
+  const tbody = document.getElementById(&quot;entityTableBody&quot;);
+  tbody.innerHTML = &quot;&quot;;
+
+  entities.forEach(entity =&amp;gt; {
+    const tr = document.createElement(&quot;tr&quot;);
+    tr.innerHTML = `&amp;lt;td&amp;gt;${entity.displayName}&amp;lt;/td&amp;gt;&amp;lt;td&amp;gt;${entity.logicalName}&amp;lt;/td&amp;gt;`;
+    tr.style.cursor = &quot;pointer&quot;;
+    tr.onclick = () =&amp;gt; selectEntity(entity);
+    tbody.appendChild(tr);
+  });
+}
+
+function filterEntities() {
+  const search = document.getElementById(&quot;searchBox&quot;).value.toLowerCase();
+  const filtered = allEntities.filter(item =&amp;gt;
+    item.displayName.toLowerCase().includes(search) ||
+    item.logicalName.toLowerCase().includes(search)
+  );
+  renderTable(filtered);
+}
+
+function selectEntity(entity) {
+  window.returnValue = { selectedEntity: entity };
+  window.close();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;h2&gt;Add &lt;code&gt;lookup.html&lt;/code&gt; to Your Form&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Go to the CRM form editor&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Add &lt;code&gt;lookup.html&lt;/code&gt; as a &lt;strong&gt;Web Resource&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;In the &quot;Custom Parameters (data)&quot; box, set:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fieldName=anup_entityname
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;💡Replace &lt;code&gt;anup_entityname&lt;/code&gt; with the &lt;strong&gt;schema name&lt;/strong&gt; of your CRM field.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr /&gt;
+&lt;h2&gt;Conclusion and Output Video&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Step&lt;/th&gt;
+&lt;th&gt;Action&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;lookup.html&lt;/code&gt; is added to form and receives &lt;code&gt;fieldName=...&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;lookup.js&lt;/code&gt; reads that field name dynamically&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;Opens &lt;code&gt;lookup_dialog.html&lt;/code&gt; using &lt;code&gt;Xrm.Navigation.navigateTo()&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;User selects entity from metadata table&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;Dialog closes and returns &lt;code&gt;{ id, name }&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;lookup.js&lt;/code&gt; sets CRM field value using &lt;code&gt;window.top.globalformContext&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&amp;lt;video width=&quot;640&quot; controls&amp;gt;
+&amp;lt;source src=&quot;/videos/entitylookup/final.webm&quot; type=&quot;video/webm&quot; /&amp;gt;
+Your browser does not support the video tag.
+&amp;lt;/video&amp;gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;Screenshot of the Custom Control&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;result.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;GitHub Repository to the Code and Solution&lt;/h2&gt;
+&lt;p&gt;You can find the full code here:&lt;br /&gt;
+👉 &lt;a href=&quot;https://github.com/anu-prakash-dev/d365-ce-entity-metadata-lookup&quot;&gt;anu-prakash-dev/d365-ce-entity-metadata-lookup&lt;/a&gt;&lt;/p&gt;
+&lt;hr /&gt;
+</content:encoded></item><item><title>Dynamically Modify FetchXML Using JavaScript in Dynamics 365 CRM</title><link>https://crmte.ch/posts/fetchxmlonruntime/</link><guid isPermaLink="true">https://crmte.ch/posts/fetchxmlonruntime/</guid><description>Dynamically Modify FetchXML Using JavaScript in Dynamics 365 CRM</description><pubDate>Fri, 23 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Dynamically Modify FetchXML Using JavaScript in Dynamics 365 CRM&lt;/h3&gt;
 &lt;p&gt;Recently I got into a requirement to conditionally manipulate the fetchxml&apos;s filter &lt;strong&gt;&lt;code&gt;condition&lt;/code&gt;&lt;/strong&gt; on runtime using client-side JavaScript and process the results. Let&apos;s walk through the steps to implement the fetchxml parser logic.&lt;/p&gt;
 &lt;hr /&gt;
 &lt;h3&gt;Steps to implement the logic&lt;/h3&gt;
@@ -538,7 +815,10 @@ module.exports = {PCFCustCtrl}
 &lt;li&gt;Section 3: Button web resource for the second accordion pane&lt;/li&gt;
 &lt;li&gt;Section 4: Content for the second accordion pane&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;initial.webm&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; framespacing=&quot;0&quot; allowfullscreen=&quot;true&quot;&amp;gt; &amp;lt;/iframe&amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;video width=&quot;640&quot; controls&amp;gt;
+&amp;lt;source src=&quot;/videos/accordion/initial.webm&quot; type=&quot;video/webm&quot; /&amp;gt;
+Your browser does not support the video tag.
+&amp;lt;/video&amp;gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Pass formContext&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;For passing the &lt;em&gt;formContext&lt;/em&gt; from the form to the button web resource, create a Form onLoad() function.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;function form_onload(executionContext) {
@@ -566,7 +846,10 @@ module.exports = {PCFCustCtrl}
 &lt;p&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.003.jpeg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.004.jpeg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.005.jpeg&quot; alt=&quot;&quot; /&gt;&lt;img src=&quot;Aspose.Words.531d5584-ecfd-4de3-b839-6d7437af928e.002.jpeg&quot; alt=&quot;ref1&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Test the Accordion Functionality&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Save and publish your form customization changes, then test the accordion functionality within the Dynamics 365 environment. Verify that clicking the buttons toggles the display of content sections as expected.&lt;/p&gt;
-&lt;p&gt;&amp;lt;iframe width=&quot;100%&quot; height=&quot;468&quot; src=&quot;./final.webm&quot; scrolling=&quot;no&quot; border=&quot;0&quot; frameborder=&quot;no&quot; framespacing=&quot;0&quot; allowfullscreen=&quot;true&quot;&amp;gt; &amp;lt;/iframe&amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;video width=&quot;640&quot; controls&amp;gt;
+&amp;lt;source src=&quot;/videos/accordion/final.webm&quot; type=&quot;video/webm&quot; /&amp;gt;
+Your browser does not support the video tag.
+&amp;lt;/video&amp;gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Implementing accordion pane functionality in Dynamics 365 forms enhances user experience by providing an organized and clutter-free layout for displaying content. By following the steps outlined in this tutorial, you can customize your forms to include accordion panes and improve usability.&lt;/p&gt;
 </content:encoded></item><item><title>Implementing Role-Based Access Control using RetrieveMultiple Plugin</title><link>https://crmte.ch/posts/retrievemulti/</link><guid isPermaLink="true">https://crmte.ch/posts/retrievemulti/</guid><description>Implementing Role-Based Access Control using RetrieveMultiple Plugin</description><pubDate>Wed, 18 Oct 2023 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Implementing Role-Based Access Control using RetrieveMultiple Plugin&lt;/h1&gt;
