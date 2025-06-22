@@ -450,7 +450,7 @@ subgridControl.setVisible(true);  // Show
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
-</content:encoded></item><item><title>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</title><link>https://crmte.ch/posts/bpfsnippets/</link><guid isPermaLink="true">https://crmte.ch/posts/bpfsnippets/</guid><description>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</description><pubDate>Sat, 17 Aug 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;JavaScript Snippets to Manage BPF in Dynamics 365 CRM&lt;/h1&gt;
+</content:encoded></item><item><title>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</title><link>https://crmte.ch/posts/bpfsnippets/</link><guid isPermaLink="true">https://crmte.ch/posts/bpfsnippets/</guid><description>JavaScript Snippets to Manage BPF in Dynamics 365 CRM</description><pubDate>Sat, 17 Aug 2024 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;JavaScript Snippets to Manage BPF in Dynamics 365 CRM&lt;/h2&gt;
 &lt;h2&gt;Get Active Process ID&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;var processId = formContext.data.process.getActiveProcess().getId();
 &lt;/code&gt;&lt;/pre&gt;
@@ -510,6 +510,25 @@ function myStageChangeFunction() {
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;: Adds an event handler that triggers when the stage changes.&lt;/p&gt;
+&lt;p&gt;Sure! Here&apos;s the updated version with a &lt;strong&gt;cancel condition&lt;/strong&gt; using &lt;code&gt;eventArgs.preventDefault()&lt;/code&gt;:&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;Add OnPreStageChange Event Handler with Cancel Option&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;formContext.data.process.addOnPreStageChange(onPreStageChangeHandler);
+
+function onPreStageChangeHandler(context) {
+    var eventArgs = context.getEventArgs();
+
+    var shouldCancel = true; // Replace with your own condition
+    if (shouldCancel) {
+        eventArgs.preventDefault();
+
+    }
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Description&lt;/strong&gt;:
+Intercepts the stage change before it occurs. The transition can be canceled using &lt;code&gt;eventArgs.preventDefault()&lt;/code&gt;.&lt;/p&gt;
+&lt;hr /&gt;
 &lt;h2&gt;Remove OnStageChange Event Handler&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;formContext.data.process.removeOnStageChange(myStageChangeFunction);
 &lt;/code&gt;&lt;/pre&gt;
