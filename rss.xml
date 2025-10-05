@@ -1,4 +1,143 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://crmte.ch/</link><language>en</language><item><title>To build an Entity Metadata Lookup in Dynamics 365 CE using Web resources(Iframe)</title><link>https://crmte.ch/posts/entitylookup/</link><guid isPermaLink="true">https://crmte.ch/posts/entitylookup/</guid><description>To implement Entity Metadata Lookup in Dynamics 365 CE using Web resources(Iframe)</description><pubDate>Fri, 20 Jun 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;To build an &lt;strong&gt;Entity Metadata Lookup&lt;/strong&gt; in Dynamics 365 CRM using Web Resources, using below:&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://crmte.ch/</link><language>en</language><item><title>Migrate data and preserve Dynamics 365 CE System Fields</title><link>https://crmte.ch/posts/oobfielddatamigrate/</link><guid isPermaLink="true">https://crmte.ch/posts/oobfielddatamigrate/</guid><description>Migrate data and preserve Dynamics 365 CE System Fields</description><pubDate>Sat, 05 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Migrate data and preserve Dynamics 365 CE System Fields&lt;/h3&gt;
+&lt;h2&gt;I got a requirement to migrate data using Azure Data Factory from On-Premises to online version of Dynamics 365 CE by preserving the existing System Field values like &lt;code&gt;createdby&lt;/code&gt;, &lt;code&gt;createdon&lt;/code&gt;, &lt;code&gt;modifiedby&lt;/code&gt;, &lt;code&gt;modifiedon&lt;/code&gt;. I will walk you through the steps which I have followed to implement &lt;strong&gt;Pre-Operation&lt;/strong&gt; plugin on &lt;strong&gt;Create&lt;/strong&gt; to capture and override system fields with custom value.&lt;/h2&gt;
+&lt;h2&gt;Plugin Execution Pipeline Overview&lt;/h2&gt;
+&lt;p&gt;On &lt;strong&gt;Create&lt;/strong&gt; of a record, Dynamics 365 executes plugins in stages:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Stage&lt;/th&gt;
+&lt;th&gt;Stage Number&lt;/th&gt;
+&lt;th&gt;Purpose&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Pre-Validation&lt;/td&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;Before main platform validation (even before any security checks)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Pre-Operation&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;After validation, before database commit. You can modify input values.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Main Operation&lt;/td&gt;
+&lt;td&gt;30&lt;/td&gt;
+&lt;td&gt;Core platform operation (internal)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Post-Operation&lt;/td&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;After record is created. Output parameters available.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr /&gt;
+&lt;h2&gt;When to Use Pre-Validation or Pre-Operation&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Plugin Stage&lt;/th&gt;
+&lt;th&gt;Use Case&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Pre-Validation&lt;/td&gt;
+&lt;td&gt;Cross-record checks, throw early errors, or prevent unnecessary operations&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Pre-Operation&lt;/td&gt;
+&lt;td&gt;Modify the &lt;code&gt;Target&lt;/code&gt; entity before it&apos;s saved to the database&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr /&gt;
+&lt;h2&gt;Step 1: Create Plugin Project&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Open Visual Studio → Create a &lt;strong&gt;Class Library (.NET Framework)&lt;/strong&gt; project.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install NuGet package:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Install-Package Microsoft.CrmSdk.CoreAssemblies
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;
+&lt;h2&gt;Step 2: Write Pre-Operation Plugin&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;        public void Execute(IServiceProvider serviceProvider)
+        {
+            // Get the tracing service
+            ITracingService tracingService = (ITracingService)serviceProvider.GetService(typeof(ITracingService));
+
+            // Get the plugin execution context from the service provider
+            IPluginExecutionContext context = (IPluginExecutionContext)serviceProvider.GetService(typeof(IPluginExecutionContext));
+
+            // Check if the plugin is registered for the Create message and Pre-Operation stage
+            if (context.MessageName.ToLower() == &quot;create&quot; &amp;amp;&amp;amp; context.Stage == 20)
+            {
+                // Verify that the Target is an Entity
+                if (context.InputParameters.Contains(&quot;Target&quot;) &amp;amp;&amp;amp; context.InputParameters[&quot;Target&quot;] is Entity)
+                {
+                    Entity entity = (Entity)context.InputParameters[&quot;Target&quot;];
+
+                    // Check if adf fields exist and map them to standard fields
+
+                    if (entity.Contains(&quot;adf_modifiedon&quot;))
+                    {
+                        entity[&quot;modifiedon&quot;] = entity[&quot;adf_modifiedon&quot;];
+                    }
+
+                    if (entity.Contains(&quot;adf_modifiedby&quot;))
+                    {
+                        entity[&quot;modifiedby&quot;] = entity[&quot;adf_modifiedby&quot;];
+                    }
+
+                    if (entity.Contains(&quot;adf_createdby&quot;))
+                    {
+                        entity[&quot;createdby&quot;] = entity[&quot;adf_createdby&quot;];
+                    }
+
+                    //Trace
+                    tracingService.Trace($&quot;Pre-Operation-Create on {entity.LogicalName} is completed.&quot;);
+
+                }
+            }
+        }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Step 3: Build &amp;amp; Register Plugin Using Plugin Registration Tool&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Connect to your CRM instance.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Build and register this assembly by uploading your DLL.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Register the step:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Message&lt;/strong&gt;: &lt;code&gt;Create&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Primary Entity&lt;/strong&gt;: &lt;code&gt;new_test&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Execution Mode&lt;/strong&gt;: &lt;code&gt;Synchronous&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Stage&lt;/strong&gt;: &lt;code&gt;PreOperation (20)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Set &quot;Execution Order&quot; if required.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;
+&lt;h2&gt;Testing the implementation&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Go to Dynamics 365 CE → Create a &lt;strong&gt;Test&lt;/strong&gt; record.&lt;/li&gt;
+&lt;li&gt;Populate data for &lt;code&gt;adf_modifiedon&lt;/code&gt;, &lt;code&gt;adf_modifiedby&lt;/code&gt;, &lt;code&gt;adf_createdby&lt;/code&gt; fields and save the record&lt;/li&gt;
+&lt;li&gt;Check if the system fields are populated with custom values.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;final.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;hr /&gt;
+</content:encoded></item><item><title>To build an Entity Metadata Lookup in Dynamics 365 CE using Web resources(Iframe)</title><link>https://crmte.ch/posts/entitylookup/</link><guid isPermaLink="true">https://crmte.ch/posts/entitylookup/</guid><description>To implement Entity Metadata Lookup in Dynamics 365 CE using Web resources(Iframe)</description><pubDate>Fri, 20 Jun 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;To build an &lt;strong&gt;Entity Metadata Lookup&lt;/strong&gt; in Dynamics 365 CRM using Web Resources, using below:&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;Use &lt;code&gt;Xrm.Navigation.navigateTo&lt;/code&gt; for dialog to display list of Entities&lt;/li&gt;
 &lt;li&gt;Passing the target CRM field dynamically via form parameters (&lt;code&gt;data=fieldName=...&lt;/code&gt;)&lt;/li&gt;
