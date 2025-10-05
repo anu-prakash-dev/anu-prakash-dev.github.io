@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://crmte.ch/</link><language>en</language><item><title>Migrate data and preserve Dynamics 365 CE System Fields</title><link>https://crmte.ch/posts/oobfielddatamigrate/</link><guid isPermaLink="true">https://crmte.ch/posts/oobfielddatamigrate/</guid><description>Migrate data and preserve Dynamics 365 CE System Fields</description><pubDate>Sat, 05 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h3&gt;Migrate data and preserve Dynamics 365 CE System Fields&lt;/h3&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://crmte.ch/</link><language>en</language><item><title>Migrate data and preserve Dynamics 365 CE System Fields</title><link>https://crmte.ch/posts/oobfielddatamigrate/</link><guid isPermaLink="true">https://crmte.ch/posts/oobfielddatamigrate/</guid><description>Migrate data and preserve Dynamics 365 CE System Fields</description><pubDate>Sat, 05 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Migrate data and preserve Dynamics 365 CE System Fields&lt;/h1&gt;
 &lt;h2&gt;I came across a requirement to migrate data using Azure Data Factory from On-Premises to online version of Dynamics 365 CE by preserving the existing System Field values like &lt;code&gt;createdby&lt;/code&gt;, &lt;code&gt;createdon&lt;/code&gt;, &lt;code&gt;modifiedby&lt;/code&gt;, &lt;code&gt;modifiedon&lt;/code&gt;. I will walk you through the steps which I have followed to implement &lt;strong&gt;Pre-Operation&lt;/strong&gt; plugin on &lt;strong&gt;Create&lt;/strong&gt; to capture and override system fields with custom value (existing value from on-premises).&lt;/h2&gt;
 &lt;h2&gt;Plugin Execution Pipeline Overview&lt;/h2&gt;
 &lt;p&gt;On &lt;strong&gt;Create&lt;/strong&gt; of a record, Dynamics 365 executes plugins in stages:&lt;/p&gt;
@@ -135,7 +135,7 @@
 &lt;li&gt;Populate data for &lt;code&gt;adf_modifiedon&lt;/code&gt;, &lt;code&gt;adf_modifiedby&lt;/code&gt;, &lt;code&gt;adf_createdby&lt;/code&gt; fields and save the record&lt;/li&gt;
 &lt;li&gt;Check if the system fields are populated with custom values.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h1&gt;Sample Input using WebApi&lt;/h1&gt;
+&lt;h3&gt;Sample Input using WebApi&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;var data = {
     &quot;adf_CreatedBy@odata.bind&quot;: &quot;/systemusers(35e0d39a-d19b-f011-bbd2-002248ee5962)&quot;,
     &quot;adf_ModifiedBy@odata.bind&quot;: &quot;/systemusers(35e0d39a-d19b-f011-bbd2-002248ee5962)&quot;,
@@ -153,7 +153,7 @@ Xrm.WebApi.createRecord(&quot;new_test&quot;, data).then(
     }
 );
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h1&gt;Sample Result&lt;/h1&gt;
+&lt;h3&gt;Sample Result&lt;/h3&gt;
 &lt;p&gt;&lt;img src=&quot;final.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 &lt;hr /&gt;
 </content:encoded></item><item><title>To build an Entity Metadata Lookup in Dynamics 365 CE using Web resources(Iframe)</title><link>https://crmte.ch/posts/entitylookup/</link><guid isPermaLink="true">https://crmte.ch/posts/entitylookup/</guid><description>To implement Entity Metadata Lookup in Dynamics 365 CE using Web resources(Iframe)</description><pubDate>Fri, 20 Jun 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;To build an &lt;strong&gt;Entity Metadata Lookup&lt;/strong&gt; in Dynamics 365 CRM using Web Resources, using below:&lt;/h1&gt;
