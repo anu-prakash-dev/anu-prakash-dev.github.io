@@ -43,7 +43,7 @@ That’s where &lt;strong&gt;&lt;code&gt;yield&lt;/code&gt;&lt;/strong&gt; comes
 &lt;li&gt;Returns value to caller&lt;/li&gt;
 &lt;li&gt;Next iteration → resumes from where it stopped&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3&gt;Example Execution Flow&lt;/h3&gt;
+&lt;h3&gt;Example Execution&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;foreach (var num in GetNumbers())
 {
     Console.WriteLine(num);
@@ -55,6 +55,32 @@ That’s where &lt;strong&gt;&lt;code&gt;yield&lt;/code&gt;&lt;/strong&gt; comes
 &lt;li&gt;Next loop → resumes → returns 2&lt;/li&gt;
 &lt;li&gt;Continues...&lt;/li&gt;
 &lt;/ol&gt;
+&lt;h1&gt;&lt;code&gt;yield break&lt;/code&gt; in C#&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;yield break&lt;/code&gt; is used to &lt;strong&gt;stop an iterator method immediately&lt;/strong&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public IEnumerable&amp;lt;int&amp;gt; GetValidNumbers(List&amp;lt;int&amp;gt; numbers)
+{
+    foreach (var num in numbers)
+    {
+        if (num &amp;lt; 0)
+        {
+            yield break; // stop if condition matches
+        }
+
+        yield return num;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;public IEnumerable&amp;lt;int&amp;gt; Example()
+{
+    yield return 1;
+    yield return 2;
+
+    yield break;
+
+    // This will NEVER execute
+    yield return 3;
+}
+&lt;/code&gt;&lt;/pre&gt;
 &lt;hr /&gt;
 </content:encoded></item><item><title>Migrate data and preserve Dynamics 365 CE System Fields</title><link>https://crmte.ch/posts/oobfielddatamigrate/</link><guid isPermaLink="true">https://crmte.ch/posts/oobfielddatamigrate/</guid><description>Migrate data and preserve Dynamics 365 CE System Fields</description><pubDate>Sat, 05 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Migrate data and preserve Dynamics 365 CE System Fields&lt;/h2&gt;
 &lt;h2&gt;I came across a requirement to migrate data using Azure Data Factory from On-Premises to online version of Dynamics 365 CE by preserving the existing System Field values like &lt;code&gt;createdby&lt;/code&gt;, &lt;code&gt;createdon&lt;/code&gt;, &lt;code&gt;modifiedby&lt;/code&gt;, &lt;code&gt;modifiedon&lt;/code&gt;. I will walk you through the steps which I have followed to implement &lt;strong&gt;Pre-Operation&lt;/strong&gt; plugin on &lt;strong&gt;Create&lt;/strong&gt; to capture and override system fields with custom value (existing value from on-premises).&lt;/h2&gt;
