@@ -1,4 +1,62 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://crmte.ch/</link><language>en</language><item><title>Migrate data and preserve Dynamics 365 CE System Fields</title><link>https://crmte.ch/posts/oobfielddatamigrate/</link><guid isPermaLink="true">https://crmte.ch/posts/oobfielddatamigrate/</guid><description>Migrate data and preserve Dynamics 365 CE System Fields</description><pubDate>Sat, 05 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h1&gt;Migrate data and preserve Dynamics 365 CE System Fields&lt;/h1&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>CRM Tech Blog</title><description>Dynamic 365 CRM Blog, Tech Insights and Power-ups</description><link>https://crmte.ch/</link><language>en</language><item><title>Usage of yield in C#</title><link>https://crmte.ch/posts/yield/</link><guid isPermaLink="true">https://crmte.ch/posts/yield/</guid><description>Usage of yield in C#</description><pubDate>Sat, 18 Apr 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;&lt;code&gt;yield&lt;/code&gt; in C# – Usage guide&lt;/h2&gt;
+&lt;h2&gt;When working with collections in C#, we often return lists or arrays. But what if you &lt;strong&gt;don’t want to load everything into memory at once&lt;/strong&gt;?
+That’s where &lt;strong&gt;&lt;code&gt;yield&lt;/code&gt;&lt;/strong&gt; comes in — one of the most powerful yet underused features in C#.&lt;/h2&gt;
+&lt;h2&gt;What is &lt;code&gt;yield&lt;/code&gt; in C#?&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;yield&lt;/code&gt; keyword allows you to &lt;strong&gt;return data one item at a time&lt;/strong&gt; instead of returning the entire collection at once.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;yield return&lt;/code&gt; returns the next item&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;yield break&lt;/code&gt; stops iteration&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It converts your method into an &lt;strong&gt;iterator&lt;/strong&gt; that returns &lt;code&gt;IEnumerable&lt;/code&gt; or &lt;code&gt;IEnumerator&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Without &lt;code&gt;yield&lt;/code&gt;?&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;public List&amp;lt;int&amp;gt; GetNumbers()
+{
+    var list = new List&amp;lt;int&amp;gt;();
+    for (int i = 1; i &amp;lt;= 5; i++)
+    {
+        list.Add(i);
+    }
+    return list;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Entire list is created in memory&lt;/li&gt;
+&lt;li&gt;No control over execution timing&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;With &lt;code&gt;yield&lt;/code&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;public IEnumerable&amp;lt;int&amp;gt; GetNumbers()
+{
+    for (int i = 1; i &amp;lt;= 5; i++)
+    {
+        yield return i;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;No list created&lt;/li&gt;
+&lt;li&gt;Better memory usage&lt;/li&gt;
+&lt;li&gt;Lazy evaluation.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;How &lt;code&gt;yield&lt;/code&gt; works&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Method &lt;strong&gt;pauses&lt;/strong&gt; at &lt;code&gt;yield return&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Returns value to caller&lt;/li&gt;
+&lt;li&gt;Next iteration → resumes from where it stopped&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Example Execution Flow&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;foreach (var num in GetNumbers())
+{
+    Console.WriteLine(num);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol&gt;
+&lt;li&gt;Call method → hits &lt;code&gt;yield return 1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Returns 1 → pauses&lt;/li&gt;
+&lt;li&gt;Next loop → resumes → returns 2&lt;/li&gt;
+&lt;li&gt;Continues...&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr /&gt;
+</content:encoded></item><item><title>Migrate data and preserve Dynamics 365 CE System Fields</title><link>https://crmte.ch/posts/oobfielddatamigrate/</link><guid isPermaLink="true">https://crmte.ch/posts/oobfielddatamigrate/</guid><description>Migrate data and preserve Dynamics 365 CE System Fields</description><pubDate>Sat, 05 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;Migrate data and preserve Dynamics 365 CE System Fields&lt;/h2&gt;
 &lt;h2&gt;I came across a requirement to migrate data using Azure Data Factory from On-Premises to online version of Dynamics 365 CE by preserving the existing System Field values like &lt;code&gt;createdby&lt;/code&gt;, &lt;code&gt;createdon&lt;/code&gt;, &lt;code&gt;modifiedby&lt;/code&gt;, &lt;code&gt;modifiedon&lt;/code&gt;. I will walk you through the steps which I have followed to implement &lt;strong&gt;Pre-Operation&lt;/strong&gt; plugin on &lt;strong&gt;Create&lt;/strong&gt; to capture and override system fields with custom value (existing value from on-premises).&lt;/h2&gt;
 &lt;h2&gt;Plugin Execution Pipeline Overview&lt;/h2&gt;
 &lt;p&gt;On &lt;strong&gt;Create&lt;/strong&gt; of a record, Dynamics 365 executes plugins in stages:&lt;/p&gt;
